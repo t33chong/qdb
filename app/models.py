@@ -2,6 +2,13 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class Tag(models.Model):
+    text = models.CharField(max_length=64)
+
+    def __unicode__(self):
+        return self.text
+
+
 class Quote(models.Model):
     text = models.TextField()
     submitter = models.ForeignKey(User)
@@ -12,13 +19,6 @@ class Quote(models.Model):
 
     def __unicode__(self):
         return unicode(self.text)[:32]
-
-
-class Tag(models.Model):
-    text = models.CharField(max_length=64)
-
-    def __unicode__(self):
-        return self.text
 
 
 class Upvote(models.Model):
