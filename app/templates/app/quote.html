@@ -1,3 +1,8 @@
 <p>{{quote.text|linebreaks}}</p>
 <h5>Submitted by {{quote.submitter}} at {{quote.date}}</h5>
-<h6>Tags: {{value|join:', '}}</h6>
+<p>Tags:</p>
+{% if quote.tags %}
+{% for tag in quote.tags.all %}
+{{tag.text}}, 
+{% endfor %}
+{% endif %}
