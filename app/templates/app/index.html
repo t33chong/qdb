@@ -1,10 +1,10 @@
-{% extends "base.html" %}
+{% extends "app/base.html" %}
 
 {% block content %}
 {% if quote_list %}
 {% for quote in quote_list %}
 <div id="quote{{quote.id}}">
-{% include "quote.html" with quote=quote %}
+{% include "app/quote.html" with quote=quote %}
 </div>
 <br>
 {% endfor %}
