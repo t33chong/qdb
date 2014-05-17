@@ -4,7 +4,7 @@
 {% if quote_list %}
 {% for quote in quote_list %}
 <div id="quote{{quote.id}}">
-{% include "quote.html" %}
+{% include "quote.html" with quote=quote %}
 </div>
 <br>
 {% endfor %}
