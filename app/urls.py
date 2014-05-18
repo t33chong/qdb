@@ -5,5 +5,5 @@ from app import views
 urlpatterns = patterns(
     '',
     url('^$', views.index, name='index'),
-    url('^(?/tag/(?P<tag_id>\d+)/$', views.tag, name='tag'),
+    url('^tag/(?P<tag_id>\d+)/$', views.tag, name='tag'),
     )
