@@ -20,6 +20,11 @@ class Quote(models.Model):
     def __unicode__(self):
         return unicode(self.text)[:32]
 
+    def list_tags(self):
+        return ', '.join(
+            ['<a href="{% url \'app:tag\' %s %}">%s</a>' % (tag.pk, tag.text)
+             for tag in self.tags])
+
 
 class Upvote(models.Model):
     quote = models.ForeignKey(Quote, related_name='upvotes')
