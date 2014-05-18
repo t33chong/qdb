@@ -3,6 +3,8 @@
 {% block content %}
 <h3>Tag: {{tag.text}}</h3>
 {% for quote in tag.quotes.all %}
-<p>{{quote.text|linebreaks}}</p>
+<div id="quote{{quote.id}}">
+  {% include "app/quote.html" with quote=quote %}
+</div>
 {% endfor %}
 {% endblock %}
