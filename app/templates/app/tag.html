@@ -1,6 +1,8 @@
 {% extends "app/base.html" %}
 
 {% block content %}
-{{tag.text}}
-{{tag.quotes}}
+<h3>Tag: {{tag.text}}</h3>
+{% for quote in tag.quotes.all %}
+<p>{{quote.text|linebreaks}}</p>
+{% endfor %}
 {% endblock %}
