@@ -4,7 +4,7 @@
     <title>Quote Database</title>
   </head>
   <body>
-    <h1>Quote Database</h1>
+    <a href="{% url 'app:index' %}">Quote Database</a> | <a href="{% url 'app:quote_create' %}">Submit</a>
     <hr>
     {% block content %}{% endblock %}
   </body>
