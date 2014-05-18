@@ -3,6 +3,6 @@
 <p>Tags:</p>
 {% if quote.tags %}
 {% for tag in quote.tags.all %}
-{{tag.text}}, 
+<a href="{% url 'app:tag' tag.id %}">{{tag.text}}</a>, 
 {% endfor %}
 {% endif %}
