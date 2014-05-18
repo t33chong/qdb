@@ -24,6 +24,7 @@ def tag(request, tag_id):
 
 
 class QuoteCreate(CreateView):
+    template_name = 'app/quote_create.html'
     form_class = QuoteForm
     model = Quote
 
