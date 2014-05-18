@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 
-from app.models import Quote
+from app.models import Quote, Tag
 
 
 def index(request):
