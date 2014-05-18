@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView
 
@@ -31,3 +32,6 @@ class QuoteCreate(CreateView):
     def form_valid(self, form):
         form.instance.submitter = self.request.user
         return super(QuoteCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('app:detail', args=(self.object.id,))
