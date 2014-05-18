@@ -9,6 +9,12 @@ def index(request):
     return render(request, 'app/index.html', context)
 
 
+def detail(request, quote_id):
+    q = get_object_or_404(Quote, pk=quote_id)
+    context = {'quote': q}
+    return render(request, 'app/detail.html', context)
+
+
 def tag(request, tag_id):
     t = get_object_or_404(Tag, pk=tag_id)
     context = {'tag': t}
