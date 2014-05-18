@@ -1,8 +1,7 @@
 <p>{{quote.text|linebreaks}}</p>
-<h5>Submitted by {{quote.submitter}} at {{quote.date}}</h5>
-<p>Tags:</p>
+<small>Submitted by {{quote.submitter}} at {{quote.date}}</small>
+<br>
+<small>Tags:</small>
 {% if quote.tags %}
-{% for tag in quote.tags.all %}
-<a href="{% url 'app:tag' tag.id %}">{{tag.text}}</a>, 
-{% endfor %}
+{{quote.list_tags()}}
 {% endif %}
