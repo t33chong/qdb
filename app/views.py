@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404, render
+from django.views.generic.edit import CreateView
 
+from app.forms import QuoteForm
 from app.models import Quote, Tag
 
 
@@ -19,3 +21,12 @@ def tag(request, tag_id):
     t = get_object_or_404(Tag, pk=tag_id)
     context = {'tag': t}
     return render(request, 'app/tag.html', context)
+
+
+class QuoteCreate(CreateView):
+    form_class = QuoteForm
+    model = Quote
+
+    def form_valid(self, form):
+        form.instance.submitter = self.request.user
+        return super(QuoteCreate, self).form_valid(form)
