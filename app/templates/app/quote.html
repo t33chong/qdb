@@ -3,5 +3,9 @@
 <br>
 <small>Tags:</small>
 {% if quote.tags %}
-{{quote.list_tags}}
+<small>
+{% for tag in quote.tags.all %}
+<a href="{% url 'app:tag' tag.id %}">{{tag.text}}</a>{% if not forloop.last %}, {% endif %}
+{% endfor %}
+</small>
 {% endif %}
