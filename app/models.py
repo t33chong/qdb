@@ -13,7 +13,7 @@ class Quote(models.Model):
     text = models.TextField()
     submitter = models.ForeignKey(User)
     date = models.DateTimeField()
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, related_name='quotes')
     num_upvotes = models.IntegerField(default=0)
     num_downvotes = models.IntegerField(default=0)
 
