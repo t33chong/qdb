@@ -4,7 +4,8 @@
     <title>Quote Database</title>
   </head>
   <body>
-    <a href="{% url 'app:index' %}">Quote Database</a> | <a href="{% url 'app:quote_create' %}">Submit</a>
+    <a href="{% url 'app:index' %}">Quote Database</a> | <a href="{% url 'app:quote_create' %}">Submit</a> | <a href="{% url 'app:signup' %}">Sign Up</a>
+    <!-- TODO: Eventually remove signup link, as user will need to be logged in to see the QDB anyway -->
     <hr>
     {% block content %}{% endblock %}
   </body>
