@@ -1,0 +1,1 @@
+Visit {% url 'app:signup' %} to sign up for the QDB.
