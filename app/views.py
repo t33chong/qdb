@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView
 
-from app.forms import QuoteForm
+from app.forms import QuoteForm, UserForm
 from app.models import Quote, Tag
 
 
@@ -22,6 +22,23 @@ def tag(request, tag_id):
     t = get_object_or_404(Tag, pk=tag_id)
     context = {'tag': t}
     return render(request, 'app/tag.html', context)
+
+
+def signup(request):
+    registered = False
+    if request.method == 'POST':
+        user_form = UserForm(data=request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            registered = True
+        else:
+            print user_form.errors
+    else:
+        user_form = UserForm()
+    context = {'user_form': user_form, 'registered': registered}
+    return render(request, 'app/signup.html', context)
 
 
 class QuoteCreate(CreateView):
