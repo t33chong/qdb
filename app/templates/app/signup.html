@@ -1,0 +1,15 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+{% if registered %}
+<h2>Success!</h2>
+<p>Successfully registered. <a href="{% url 'app:quote_create' %}">Submit a quote?</a></p>
+{% else %}
+<h2>Sign Up</h2>
+<form action="" method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" value="Sign Up">
+</form>
+{% endif %}
+{% endblock %}
