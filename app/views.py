@@ -27,17 +27,17 @@ def tag(request, tag_id):
 def signup(request):
     registered = False
     if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        if user_form.is_valid():
-            user = user_form.save()
+        form = UserForm(data=request.POST)
+        if form.is_valid():
+            user = form.save()
             user.set_password(user.password)
             user.save()
             registered = True
         else:
-            print user_form.errors
+            print form.errors
     else:
-        user_form = UserForm()
-    context = {'user_form': user_form, 'registered': registered}
+        form = UserForm()
+    context = {'form': form, 'registered': registered}
     return render(request, 'app/signup.html', context)
 
 
