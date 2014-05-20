@@ -1,23 +1,29 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import classonlymethod
 from django.views.generic.edit import CreateView
+
+from password_required.decorators import password_required
 
 from app.forms import QuoteForm, UserForm
 from app.models import Quote, Tag
 
 
+@password_required
 def index(request):
     quote_list = Quote.objects.all().order_by('-date')[:5]
     context = {'quote_list': quote_list}
     return render(request, 'app/index.html', context)
 
 
+@password_required
 def detail(request, quote_id):
     q = get_object_or_404(Quote, pk=quote_id)
     context = {'quote': q}
     return render(request, 'app/detail.html', context)
 
 
+@password_required
 def tag(request, tag_id):
     t = get_object_or_404(Tag, pk=tag_id)
     context = {'tag': t}
@@ -45,6 +51,11 @@ class Submit(CreateView):
     template_name = 'app/submit.html'
     form_class = QuoteForm
     model = Quote
+
+    #@password_required
+    @classonlymethod
+    def as_view(cls, **initkwargs):
+        super(Submit, cls).as_view(**initkwargs)
 
     def form_valid(self, form):
         form.instance.submitter = self.request.user
