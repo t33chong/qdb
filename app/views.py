@@ -41,14 +41,14 @@ def signup(request):
     return render(request, 'app/signup.html', context)
 
 
-class QuoteCreate(CreateView):
-    template_name = 'app/quote_create.html'
+class Submit(CreateView):
+    template_name = 'app/submit.html'
     form_class = QuoteForm
     model = Quote
 
     def form_valid(self, form):
         form.instance.submitter = self.request.user
-        return super(QuoteCreate, self).form_valid(form)
+        return super(Submit, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('app:detail', args=(self.object.id,))
