@@ -1,5 +1,7 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
@@ -47,6 +49,25 @@ def signup(request):
         form = UserForm()
     context = {'form': form, 'registered': registered}
     return render(request, 'app/signup.html', context)
+
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return reverse('app:index')
+            else:
+                return HttpResponse('Your account is disabled.')
+        else:
+            print 'Invalid login details: %s, %s' % (username, password)
+            return HttpResponse('Invalid login details supplied')
+    else:
+        context = {}
+        return render(request, 'app/login.html', context)
 
 
 class Submit(CreateView):
