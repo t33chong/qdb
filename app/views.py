@@ -67,7 +67,7 @@ def log_in(request):
             print 'Invalid login details: %s, %s' % (username, password)
             return HttpResponse('Invalid login details supplied')
     else:
-        form = AuthenticationForm()
+        form = AuthenticationForm(request)
         context = {'form': form}
         return render(request, 'app/login.html', context)
 
