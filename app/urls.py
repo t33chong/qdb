@@ -8,5 +8,6 @@ urlpatterns = patterns(
     url('^quote/(?P<quote_id>\d+)/$', views.detail, name='detail'),
     url('^tag/(?P<tag_id>\d+)/$', views.tag, name='tag'),
     url('^signup/$', views.signup, name='signup'),
+    url('^login/$', views.log_in, name='login'),
     url('^submit/$', views.Submit.as_view(), name='submit'),
     )
