@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
@@ -51,7 +51,7 @@ def signup(request):
     return render(request, 'app/signup.html', context)
 
 
-def login(request):
+def log_in(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
