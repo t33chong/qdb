@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse
@@ -71,6 +71,12 @@ def log_in(request):
         form = AuthenticationForm()
         context = {'form': form}
         return render(request, 'app/login.html', context)
+
+
+@login_required
+def log_out(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('app:login'))
 
 
 class Submit(CreateView):
