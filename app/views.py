@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -70,7 +71,8 @@ def log_in(request):
         else:
             print 'Invalid login details: %s, %s' % (username, password)
             # Eventually do this with a flash message
-            return render(request, 'app/invalid.html', {})
+            messages.error(request, 'Invalid login details. Please try again.')
+            #return render(request, 'app/invalid.html', {})
     else:
         form = AuthenticationForm()
         context = {'form': form}
