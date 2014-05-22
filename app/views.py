@@ -105,6 +105,9 @@ def submit(request):
             )
         quote.save()
         return redirect('app/detail.html', quote=quote)
+    form = QuoteForm()
+    context = {'form': form}
+    return render(request, 'app/submit.html', context)
 
 
 class Submit(CreateView):
