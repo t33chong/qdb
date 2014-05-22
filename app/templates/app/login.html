@@ -4,8 +4,7 @@
 <h2>Log In</h2>
 <form action="" method="post">
   {% csrf_token %}
-  Username: <input type="text" name="username" value="" size="50"><br>
-  Password: <input type="password" name="password" value="" size="50"><br>
+  {{form.as_p}}
   <input type="submit" value="Log In">
 </form>
 {% endblock %}
