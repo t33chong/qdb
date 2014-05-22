@@ -44,6 +44,9 @@ def signup(request):
             user.set_password(user.password)
             user.save()
             registered = True
+            user = authenticate(username=user.username, password=user.password)
+            login(request, user)
+            return HttpResponseRedirect(reverse('app:index'))
         else:
             print form.errors
     else:
