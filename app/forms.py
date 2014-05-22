@@ -1,20 +1,16 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from app.models import Quote, Tag
+from app.models import Quote
 
 
 # TODO: Add ability to create new tags in quote form
 class QuoteForm(forms.ModelForm):
+    tag_string = forms.CharField()
+
     class Meta:
         model = Quote
-        fields = ('text', 'tags')
-
-
-class TagForm(forms.ModelForm):
-    class Meta:
-        model = Tag
-        fields = ('text',)
+        fields = ('text', 'tag_string')
 
 
 class UserForm(forms.ModelForm):
