@@ -53,24 +53,7 @@ def signup(request):
 
 
 def log_in(request):
-    context = RequestContext(request)
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/')
-            else:
-                return HttpResponse('Your account is disabled.')
-        else:
-            print 'Invalid login details: %s, %s' % (username, password)
-            # Eventually do this with a flash message
-            return HttpResponse('Invalid login details supplied.')
-    else:
-        return render_to_response('app/login.html', {}, context)
-
+#    context = RequestContext(request)
 #    if request.method == 'POST':
 #        username = request.POST['username']
 #        password = request.POST['password']
@@ -78,15 +61,32 @@ def log_in(request):
 #        if user:
 #            if user.is_active:
 #                login(request, user)
-#                return reverse('app:index')
+#                return HttpResponseRedirect('/')
 #            else:
-#                return render(request, 'app/disabled.html', {})
+#                return HttpResponse('Your account is disabled.')
 #        else:
 #            print 'Invalid login details: %s, %s' % (username, password)
 #            # Eventually do this with a flash message
-#            return render(request, 'app/invalid.html', {})
+#            return HttpResponse('Invalid login details supplied.')
 #    else:
-#        return render(request, 'app/login.html', {})
+#        return render_to_response('app/login.html', {}, context)
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('app:index'))
+            else:
+                return render(request, 'app/disabled.html', {})
+        else:
+            print 'Invalid login details: %s, %s' % (username, password)
+            # Eventually do this with a flash message
+            return render(request, 'app/invalid.html', {})
+    else:
+        return render(request, 'app/login.html', {})
 
 
 class Submit(CreateView):
