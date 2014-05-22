@@ -86,13 +86,13 @@ def log_out(request):
 def submit(request):
     if request.method == 'POST':
         tag_string = request.POST['tag_string']
-        tag_keys = [
-            Tag.make_valid_tag(key.strip()) for key in tag_string.split(',')]
+        tag_texts = [
+            Tag.make_valid_tag(text.strip()) for text in tag_string.split(',')]
         tags = []
-        for key in tag_keys:
-            tag = Tag.objects.get(pk=key)
+        for text in tag_texts:
+            tag = Tag.objects.get(text=text)
             if tag is None:
-                tag = Tag(text=key)
+                tag = Tag(text=text)
                 tag.save()
             tags.append(tag)
         quote = Quote(
