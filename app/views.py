@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.exceptions import DoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
@@ -94,8 +95,9 @@ def submit(request):
         tag_texts = [
             Tag.make_valid_tag(text.strip()) for text in tag_string.split(',')]
         for text in tag_texts:
-            tag = Tag.objects.filter(text=text)
-            if tag is None:
+            try:
+                tag = Tag.objects.get(text=text)
+            except DoesNotExist:
                 tag = Tag(text=text)
                 tag.save()
             quote.tags.add(tag)
