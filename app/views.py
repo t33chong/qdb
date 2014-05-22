@@ -1,5 +1,4 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
@@ -67,8 +66,7 @@ def log_in(request):
             print 'Invalid login details: %s, %s' % (username, password)
             return HttpResponse('Invalid login details supplied')
     else:
-        form = AuthenticationForm(request)
-        context = {'form': form}
+        context = {}
         return render(request, 'app/login.html', context)
 
 
