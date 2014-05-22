@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 
@@ -80,6 +80,31 @@ def log_in(request):
 def log_out(request):
     logout(request)
     return HttpResponseRedirect(reverse('app:login'))
+
+
+@login_required
+def submit(request):
+    if request.method == 'POST':
+        tag_string = request.POST['tag_string']
+        tag_keys = [
+            Tag.make_valid_tag(key.strip()) for key in tag_string.split(',')]
+        tags = []
+        for key in tag_keys:
+            tag = Tag.objects.get(pk=key)
+            if tag is None:
+                tag = Tag(text=key)
+                tag.save()
+            tags.append(tag)
+        quote = Quote(
+            text=request.POST['text'],
+            submitter=request.POST['submitter'],
+            date=request.POST['date'],
+            tags=tags,
+            num_upvotes=request.POST['num_upvotes'],
+            num_downvotes=request.POST['num_downvotes'],
+            )
+        quote.save()
+        return redirect('app/detail.html', quote=quote)
 
 
 class Submit(CreateView):
