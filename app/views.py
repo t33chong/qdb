@@ -90,7 +90,7 @@ def submit(request):
             Tag.make_valid_tag(text.strip()) for text in tag_string.split(',')]
         tags = []
         for text in tag_texts:
-            tag = Tag.objects.get(text=text)
+            tag = Tag.objects.filter(text=text)
             if tag is None:
                 tag = Tag(text=text)
                 tag.save()
