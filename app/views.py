@@ -100,7 +100,7 @@ def submit(request):
                 tag = Tag(text=text)
                 tag.save()
             quote.tags.add(tag)
-        return redirect('app/detail.html', quote=quote)
+        return redirect(reverse('app:detail', args=(quote.id,)))
     form = QuoteForm()
     context = {'form': form}
     return render(request, 'app/submit.html', context)
