@@ -85,22 +85,20 @@ def log_out(request):
 @login_required
 def submit(request):
     if request.method == 'POST':
+        quote = Quote(
+            text=request.POST['text'],
+            submitter=request.user,
+            )
+        quote.save()
         tag_string = request.POST['tag_string']
         tag_texts = [
             Tag.make_valid_tag(text.strip()) for text in tag_string.split(',')]
-        tags = []
         for text in tag_texts:
             tag = Tag.objects.filter(text=text)
             if tag is None:
                 tag = Tag(text=text)
                 tag.save()
-            tags.append(tag)
-        quote = Quote(
-            text=request.POST['text'],
-            submitter=request.user,
-            tags=tags,
-            )
-        quote.save()
+            quote.tags.add(tag)
         return redirect('app/detail.html', quote=quote)
     form = QuoteForm()
     context = {'form': form}
