@@ -98,7 +98,6 @@ def submit(request):
         quote = Quote(
             text=request.POST['text'],
             submitter=request.user,
-            date=request.POST['date'],
             tags=tags,
             num_upvotes=request.POST['num_upvotes'],
             num_downvotes=request.POST['num_downvotes'],
