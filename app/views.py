@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
@@ -61,13 +60,13 @@ def log_in(request):
                 login(request, user)
                 return reverse('app:index')
             else:
-                return HttpResponse('Your account is disabled.')
+                return render(request, 'app/disabled.html', {})
         else:
             print 'Invalid login details: %s, %s' % (username, password)
-            return HttpResponse('Invalid login details supplied')
+            # Eventually do this with a flash message
+            return render(request, 'app/invalid.html', {})
     else:
-        context = {}
-        return render(request, 'app/login.html', context)
+        return render(request, 'app/login.html', {})
 
 
 class Submit(CreateView):
