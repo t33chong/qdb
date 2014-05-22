@@ -1,7 +1,9 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, render_to_response
+from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 
@@ -51,6 +53,7 @@ def signup(request):
 
 
 def log_in(request):
+    context = RequestContext(request)
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -58,15 +61,32 @@ def log_in(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return reverse('app:index')
+                return HttpResponseRedirect('/')
             else:
-                return render(request, 'app/disabled.html', {})
+                return HttpResponse('Your account is disabled.')
         else:
             print 'Invalid login details: %s, %s' % (username, password)
             # Eventually do this with a flash message
-            return render(request, 'app/invalid.html', {})
+            return HttpResponse('Invalid login details supplied.')
     else:
-        return render(request, 'app/login.html', {})
+        return render_to_response('app/login.html', {}, context)
+
+#    if request.method == 'POST':
+#        username = request.POST['username']
+#        password = request.POST['password']
+#        user = authenticate(username=username, password=password)
+#        if user:
+#            if user.is_active:
+#                login(request, user)
+#                return reverse('app:index')
+#            else:
+#                return render(request, 'app/disabled.html', {})
+#        else:
+#            print 'Invalid login details: %s, %s' % (username, password)
+#            # Eventually do this with a flash message
+#            return render(request, 'app/invalid.html', {})
+#    else:
+#        return render(request, 'app/login.html', {})
 
 
 class Submit(CreateView):
