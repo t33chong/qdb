@@ -5,7 +5,7 @@
 {% if quote.tags %}
 <small>
 {% for tag in quote.tags.all %}
-<a href="{% url 'app:tag' tag.pk %}">{{tag.text}}</a>{% if not forloop.last %}, {% endif %}
+<a href="{% url 'app:tag' tag.text %}">{{tag.text}}</a>{% if not forloop.last %}, {% endif %}
 {% endfor %}
 </small>
 {% endif %}
