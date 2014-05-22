@@ -67,16 +67,13 @@ def log_in(request):
                 login(request, user)
                 return HttpResponseRedirect(reverse('app:index'))
             else:
-                return render(request, 'app/disabled.html', {})
+                messages.error(request, 'Your account is disabled.')
         else:
             print 'Invalid login details: %s, %s' % (username, password)
-            # Eventually do this with a flash message
             messages.error(request, 'Invalid login details. Please try again.')
-            #return render(request, 'app/invalid.html', {})
-    else:
-        form = AuthenticationForm()
-        context = {'form': form}
-        return render(request, 'app/login.html', context)
+    form = AuthenticationForm()
+    context = {'form': form}
+    return render(request, 'app/login.html', context)
 
 
 @login_required
