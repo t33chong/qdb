@@ -1,9 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, render_to_response
-from django.template import RequestContext
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView
 
@@ -53,24 +52,6 @@ def signup(request):
 
 
 def log_in(request):
-#    context = RequestContext(request)
-#    if request.method == 'POST':
-#        username = request.POST['username']
-#        password = request.POST['password']
-#        user = authenticate(username=username, password=password)
-#        if user:
-#            if user.is_active:
-#                login(request, user)
-#                return HttpResponseRedirect('/')
-#            else:
-#                return HttpResponse('Your account is disabled.')
-#        else:
-#            print 'Invalid login details: %s, %s' % (username, password)
-#            # Eventually do this with a flash message
-#            return HttpResponse('Invalid login details supplied.')
-#    else:
-#        return render_to_response('app/login.html', {}, context)
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
