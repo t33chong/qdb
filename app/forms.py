@@ -11,6 +11,12 @@ class QuoteForm(forms.ModelForm):
         fields = ('text', 'tags')
 
 
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ('text',)
+
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
