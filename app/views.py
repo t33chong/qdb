@@ -97,7 +97,7 @@ def submit(request):
             tags.append(tag)
         quote = Quote(
             text=request.POST['text'],
-            submitter=request.POST['submitter'],
+            submitter=request.user,
             date=request.POST['date'],
             tags=tags,
             num_upvotes=request.POST['num_upvotes'],
