@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -67,7 +68,9 @@ def log_in(request):
             # Eventually do this with a flash message
             return render(request, 'app/invalid.html', {})
     else:
-        return render(request, 'app/login.html', {})
+        form = AuthenticationForm()
+        context = {'form': form}
+        return render(request, 'app/login.html', context)
 
 
 class Submit(CreateView):
