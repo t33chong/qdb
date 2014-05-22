@@ -1,9 +1,14 @@
+import re
 from django.contrib.auth.models import User
 from django.db import models
 
 
 class Tag(models.Model):
     text = models.CharField(max_length=64)
+
+    @staticmethod
+    def make_valid_tag(text):
+        return re.sub('\W+', '_', text).lower()[:64]
 
     def __unicode__(self):
         return self.text
