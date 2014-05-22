@@ -44,7 +44,8 @@ def signup(request):
             user.set_password(user.password)
             user.save()
             registered = True
-            user = authenticate(username=user.username, password=user.password)
+            user = authenticate(username=request.POST['username'],
+                                password=request.POST['password'])
             login(request, user)
             return HttpResponseRedirect(reverse('app:index'))
         else:
