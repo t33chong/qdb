@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Tag.id'
         db.add_column(u'app_tag', u'id',
-                      self.gf('django.db.models.fields.AutoField')(default=0, primary_key=True),
+                      self.gf('django.db.models.fields.AutoField')(primary_key=True),
                       keep_default=False)
 
 
