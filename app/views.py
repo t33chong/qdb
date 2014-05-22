@@ -99,8 +99,6 @@ def submit(request):
             text=request.POST['text'],
             submitter=request.user,
             tags=tags,
-            num_upvotes=request.POST['num_upvotes'],
-            num_downvotes=request.POST['num_downvotes'],
             )
         quote.save()
         return redirect('app/detail.html', quote=quote)
