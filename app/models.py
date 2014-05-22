@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Tag(models.Model):
-    text = models.CharField(max_length=64)
+    text = models.CharField(max_length=64, primary_key=True)
 
     @staticmethod
     def make_valid_tag(text):
