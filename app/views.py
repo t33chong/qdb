@@ -36,12 +36,15 @@ def detail(request, quote_id):
 
 @login_required
 def tag(request, tag_text, page_num=1):
-    # TODO: Paginate
     tag = Tag.objects.filter(text=tag_text).first()
+    page = None
     quotes = None
     if tag is not None:
         quotes = tag.quotes.all()
-    context = {'tag_text': tag_text, 'quotes': quotes}
+        if quotes:
+            p = Paginator(quotes, PER_PAGE)
+            page = p.page(page_num)
+    context = {'tag_text': tag_text, 'page': page}
     return render(request, 'app/tag.html', context)
 
 
