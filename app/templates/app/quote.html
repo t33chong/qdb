@@ -1,5 +1,5 @@
 <pre>{{quote.text|linebreaks}}</pre>
-<small>Submitted by {{quote.submitter}} at <a href="{% url 'app:detail' quote.id %}">{{quote.date}}</a></small>
+<small>Submitted by <a href="{% url 'app:user' quote.submitter.username %}">{{quote.submitter}}</a> at <a href="{% url 'app:detail' quote.id %}">{{quote.date}}</a></small>
 <br>
 <small>Tags:</small>
 {% if quote.tags %}
