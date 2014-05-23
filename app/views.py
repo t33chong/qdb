@@ -30,11 +30,15 @@ def detail(request, quote_id):
 
 @login_required
 def tag(request, tag_text):
-    try:
-        tag = Tag.objects.get(text=tag_text)
-    except Tag.DoesNotExist:
-        tag = None
-    context = {'tag': tag, 'tag_text': tag_text}
+    tag = Tag.objects.filter(text=tag_text).first()
+    quotes = None
+    if tag is not None:
+        quotes = tag.quotes.all()
+    #try:
+    #    tag = Tag.objects.get(text=tag_text)
+    #except Tag.DoesNotExist:
+    #    tag = None
+    context = {'tag_text': tag_text, 'quotes': quotes}
     return render(request, 'app/tag.html', context)
 
 
@@ -97,11 +101,15 @@ def submit(request):
         tag_texts = [
             Tag.make_valid_tag(text.strip()) for text in tag_string.split(',')]
         for text in tag_texts:
-            try:
-                tag = Tag.objects.get(text=text)
-            except Tag.DoesNotExist:
+            tag = Tag.objects.filter(text=text).first()
+            if tag is None:
                 tag = Tag(text=text)
                 tag.save()
+            #try:
+            #    tag = Tag.objects.get(text=text)
+            #except Tag.DoesNotExist:
+            #    tag = Tag(text=text)
+            #    tag.save()
             quote.tags.add(tag)
         return redirect(reverse('app:detail', args=(quote.id,)))
     form = QuoteForm()
