@@ -6,7 +6,7 @@ urlpatterns = patterns(
     '',
     url('^$', views.index, name='index'),
     url('^quote/(?P<quote_id>\d+)/$', views.detail, name='detail'),
-    url('^tag/(?P<tag_id>\w+)/$', views.tag, name='tag'),
+    url('^tag/(?P<tag_text>\w+)/$', views.tag, name='tag'),
     url('^signup/$', views.signup, name='signup'),
     url('^login/$', views.log_in, name='login'),
     url('^logout/$', views.log_out, name='logout'),
