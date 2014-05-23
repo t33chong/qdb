@@ -5,6 +5,7 @@ from app import views
 urlpatterns = patterns(
     '',
     url('^$', views.index, name='index'),
+    url('^all/(?P<page>\d+)/$', views.index, name='all'),
     url('^quote/(?P<quote_id>\d+)/$', views.detail, name='detail'),
     url('^tag/(?P<tag_text>\w+)/$', views.tag, name='tag'),
     url('^user/(?P<username>\w+)/$', views.user, name='user'),
