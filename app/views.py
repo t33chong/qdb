@@ -5,8 +5,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.decorators import method_decorator
-from django.views.generic.edit import CreateView
 
 from password_required.decorators import password_required
 
@@ -106,20 +104,3 @@ def submit(request):
     form = QuoteForm()
     context = {'form': form}
     return render(request, 'app/submit.html', context)
-
-
-class Submit(CreateView):
-    template_name = 'app/submit.html'
-    form_class = QuoteForm
-    model = Quote
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(Submit, self).dispatch(*args, **kwargs)
-
-    def form_valid(self, form):
-        form.instance.submitter = self.request.user
-        return super(Submit, self).form_valid(form)
-
-    def get_success_url(self):
-        return reverse('app:detail', args=(self.object.id,))
