@@ -2,8 +2,8 @@
 
 {% block content %}
 <h3>Tag: {{tag_text}}</h3>
-{% if tag %}
-{% for quote in tag.quotes.all %}
+{% if quotes %}
+{% for quote in quotes %}
 <div id="quote{{quote.id}}">
   {% include "app/quote.html" with quote=quote %}
 </div>
