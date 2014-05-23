@@ -8,6 +8,19 @@
   {% include "app/quote.html" with quote=quote %}
 </div>
 {% endfor %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page.has_previous %}
+    <a href="{% url 'app:tag' tag_text=tag_text page_num=page.previous_page_number %}">previous</a>
+    {% endif %}
+    <span class="current">
+      Page {{page.number}} of {{page.paginator.num_pages}}.
+    </span>
+    {% if page.has_next %}
+    <a href="{% url 'app:tag' tag_text=tag_text page_num=page.next_page_number %}">next</a>
+    {% endif %}
+  </span>
+</div>
 {% else %}
 No quotes found with the tag "{{tag_text}}".
 {% endif %}
