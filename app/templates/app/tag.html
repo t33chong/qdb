@@ -10,7 +10,7 @@
   {% include "app/quote.html" with quote=quote %}
 </div>
 {% endfor %}
-{% bootstrap_paginate page url_view_name="app:tag_page" url_extra_args=tag_text url_param_name="page_num" %}
+{% bootstrap_paginate page url_view_name="app:tag" url_extra_args=(tag_text,) %}
 {% else %}
 No quotes found with the tag "{{tag_text}}".
 {% endif %}
