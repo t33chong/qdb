@@ -12,6 +12,5 @@ urlpatterns = patterns(
     url('^signup/$', views.signup, name='signup'),
     url('^login/$', views.log_in, name='login'),
     url('^logout/$', views.log_out, name='logout'),
-    #url('^submit/$', views.Submit.as_view(), name='submit'),
     url('^submit/$', views.submit, name='submit'),
     )
