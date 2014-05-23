@@ -7,7 +7,7 @@ urlpatterns = patterns(
     url('^$', views.index, name='index'),
     url('^all/(?P<page_num>\d+)/$', views.index, name='all'),
     url('^quote/(?P<quote_id>\d+)/$', views.detail, name='detail'),
-    url('^tag/(?P<tag_text>\w+)/(?:(?P<page>\d+)/)?$',
+    url('^tag/(?P<tag_text>\w+)/(?:(?P<page_num>\d+)/)?$',
         views.tag, name='tag'),
     #url('^tag/(?P<tag_text>\w+)/(?P<page_num>\d+)/$',
     #    views.tag, name='tag_page'),
