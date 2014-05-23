@@ -2,6 +2,7 @@
 
 {% block content %}
 <h3>User: {{username}}</h3>
+{% if user_exists %}
 {% if quotes %}
 {% for quote in quotes %}
 <div id="quote{{quote.id}}">
@@ -10,5 +11,8 @@
 {% endfor %}
 {% else %}
 {{username}} has not submitted any quotes yet.
+{% endif %}
+{% else %}
+User "{{username}}" does not exist.
 {% endif %}
 {% endblock %}
