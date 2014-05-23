@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Quote Database</title>
+
+    <!-- Bootstrap -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+
   </head>
   <body>
     <a href="{% url 'app:index' %}">Quote Database</a> | <a href="{% url 'app:submit' %}">Submit</a>{% if user.is_authenticated %} | {{user.username}} | <a href="{% url 'app:logout' %}">Log Out</a>{% else %} | <a href="{% url 'app:signup' %}">Sign Up</a> | <a href="{% url 'app:login' %}">Log In</a>{% endif %}
     <!-- TODO: Eventually remove signup link, as user will need to be logged in to see the QDB anyway -->
     <hr>
     {% block content %}{% endblock %}
+    <script src="{% static 'app/js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
   </body>
 </html>
