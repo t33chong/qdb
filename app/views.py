@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
@@ -22,7 +22,12 @@ def index(request, page_num=1):
     page = None
     if quotes:
         p = Paginator(quotes, PER_PAGE)
-        page = p.page(page_num)
+        try:
+            page = p.page(page_num)
+        except PageNotAnInteger:
+            page = p.page(1)
+        except EmptyPage:
+            page = p.page(p.num_pages)
     context = {'page': page}
     return render(request, 'app/index.html', context)
 
