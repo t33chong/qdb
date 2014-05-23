@@ -15,20 +15,22 @@ from app.models import Quote, Tag
 
 @login_required
 def index(request):
-    quote_list = Quote.objects.all().order_by('-date')[:5]
-    context = {'quote_list': quote_list}
+    # TODO: Paginate
+    quotes = Quote.objects.all().order_by('-date')
+    context = {'quotes': quotes}
     return render(request, 'app/index.html', context)
 
 
 @login_required
 def detail(request, quote_id):
-    q = get_object_or_404(Quote, pk=quote_id)
-    context = {'quote': q}
+    quote = get_object_or_404(Quote, pk=quote_id)
+    context = {'quote': quote}
     return render(request, 'app/detail.html', context)
 
 
 @login_required
 def tag(request, tag_text):
+    # TODO: Paginate
     tag = Tag.objects.filter(text=tag_text).first()
     quotes = None
     if tag is not None:
@@ -39,6 +41,7 @@ def tag(request, tag_text):
 
 @login_required
 def user(request, username):
+    # TODO: Paginate
     user = User.objects.filter(username=username).first()
     user_exists = False
     quotes = None
