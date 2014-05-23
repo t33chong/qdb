@@ -19,7 +19,7 @@ PER_PAGE = 2
 @login_required
 def index(request, page_num=1):
     # TODO: Paginate
-    quotes = Quote.objects.all().order_by('-date'), PER_PAGE
+    quotes = Quote.objects.all().order_by('-date')
     p = Paginator(quotes, PER_PAGE)
     page = p.page(page_num)
     context = {'page': page}
