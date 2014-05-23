@@ -34,10 +34,6 @@ def tag(request, tag_text):
     quotes = None
     if tag is not None:
         quotes = tag.quotes.all()
-    #try:
-    #    tag = Tag.objects.get(text=tag_text)
-    #except Tag.DoesNotExist:
-    #    tag = None
     context = {'tag_text': tag_text, 'quotes': quotes}
     return render(request, 'app/tag.html', context)
 
@@ -105,11 +101,6 @@ def submit(request):
             if tag is None:
                 tag = Tag(text=text)
                 tag.save()
-            #try:
-            #    tag = Tag.objects.get(text=text)
-            #except Tag.DoesNotExist:
-            #    tag = Tag(text=text)
-            #    tag.save()
             quote.tags.add(tag)
         return redirect(reverse('app:detail', args=(quote.id,)))
     form = QuoteForm()
