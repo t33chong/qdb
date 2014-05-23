@@ -75,7 +75,7 @@ def user(request, username, page_num=1):
             except EmptyPage:
                 page = p.page(p.num_pages)
     context = {
-        'username': username, 'page': page, 'user_exists': user_exists}
+        'username': username, 'user_exists': user_exists, 'page': page}
     return render(request, 'app/user.html', context)
 
 
