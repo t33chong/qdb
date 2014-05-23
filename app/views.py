@@ -29,9 +29,12 @@ def detail(request, quote_id):
 
 
 @login_required
-def tag(request, tag_id):
-    t = get_object_or_404(Tag, pk=tag_id)
-    context = {'tag': t}
+def tag(request, tag_text):
+    try:
+        tag = Tag.objects.get(text=tag_text)
+    except Tag.DoesNotExist:
+        tag = None
+    context = {'tag': tag, 'tag_text': tag_text}
     return render(request, 'app/tag.html', context)
 
 
