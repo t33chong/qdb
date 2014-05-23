@@ -40,10 +40,13 @@ def tag(request, tag_text):
 @login_required
 def user(request, username):
     user = User.objects.filter(username=username).first()
+    user_exists = False
     quotes = None
     if user is not None:
+        user_exists = True
         quotes = user.quotes.all()
-    context = {'username': username, 'quotes': quotes}
+    context = {
+        'username': username, 'quotes': quotes, 'user_exists': user_exists}
     return render(request, 'app/user.html', context)
 
 
