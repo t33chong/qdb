@@ -3,7 +3,15 @@
 {% load bootstrap_pagination %}
 
 {% block content %}
-{% if quotes %}
-{% bootstrap_paginate quotes %}
+{% if page %}
+{% for quote in page %}
+<div id="quote{{quote.id}}">
+  {% include "app/quote.html" with quote=quote %}
+</div>
+<br>
+{% endfor %}
+{% bootstrap_paginate page %}
+{% else %}
+<p>No quotes have been submitted.</p>
 {% endif %}
 {% endblock %}
