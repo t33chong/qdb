@@ -1,0 +1,14 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+<h3>User: {{username}}</h3>
+{% if quotes %}
+{% for quote in quotes %}
+<div id="quote{{quote.id}}">
+  {% include "app/quote.html" with quote=quote %}
+</div>
+{% endfor %}
+{% else %}
+{{username}} has not submitted any quotes yet.
+{% endif %}
+{% endblock %}
