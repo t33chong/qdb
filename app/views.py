@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
@@ -34,6 +35,16 @@ def tag(request, tag_text):
         quotes = tag.quotes.all()
     context = {'tag_text': tag_text, 'quotes': quotes}
     return render(request, 'app/tag.html', context)
+
+
+@login_required
+def user(request, username):
+    user = User.objects.filter(username=username).first()
+    quotes = None
+    if user is not None:
+        quotes = user.quotes.all()
+    context = {'username': username, 'quotes': quotes}
+    return render(request, 'app/user.html', context)
 
 
 @password_required
