@@ -1,7 +1,5 @@
 {% extends "app/base.html" %}
 
-{% load bootstrap_pagination %}
-
 {% block content %}
 {% if page %}
 {% for quote in page %}
@@ -10,7 +8,6 @@
 </div>
 <br>
 {% endfor %}
-{% bootstrap_paginate page url_view_name="app:all" url_param_name="page_num" %}
 {% else %}
 <p>No quotes have been submitted.</p>
 {% endif %}
