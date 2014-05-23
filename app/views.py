@@ -36,6 +36,8 @@ def detail(request, quote_id):
 
 @login_required
 def tag(request, tag_text, page_num=1):
+    if page_num is None:
+        page_num = 1
     tag = Tag.objects.filter(text=tag_text).first()
     page = None
     quotes = None
