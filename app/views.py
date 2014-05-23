@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
@@ -12,12 +13,16 @@ from password_required.decorators import password_required
 from app.forms import QuoteForm, UserForm
 from app.models import Quote, Tag
 
+PER_PAGE = 2
+
 
 @login_required
-def index(request):
+def index(request, page_num=1):
     # TODO: Paginate
-    quotes = Quote.objects.all().order_by('-date')
-    context = {'quotes': quotes}
+    quotes = Quote.objects.all().order_by('-date'), PER_PAGE
+    p = Paginator(quotes, PER_PAGE)
+    page = p.page(page_num)
+    context = {'page': page}
     return render(request, 'app/index.html', context)
 
 
