@@ -1,13 +1,16 @@
 {% extends "app/base.html" %}
 
+{% load bootstrap_pagination %}
+
 {% block content %}
 <h3>Tag: {{tag_text}}</h3>
-{% if quotes %}
-{% for quote in quotes %}
+{% if page %}
+{% for quote in page %}
 <div id="quote{{quote.id}}">
   {% include "app/quote.html" with quote=quote %}
 </div>
 {% endfor %}
+{% bootstrap_paginate page url_view_name="app:tag_page" url_extra_args=tag_text url_param_name="page_num" %}
 {% else %}
 No quotes found with the tag "{{tag_text}}".
 {% endif %}
