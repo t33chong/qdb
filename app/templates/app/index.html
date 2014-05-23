@@ -10,7 +10,7 @@
 </div>
 <br>
 {% endfor %}
-{% bootstrap_paginate page %}
+{% bootstrap_paginate page url_view_name="app:all" %}
 {% else %}
 <p>No quotes have been submitted.</p>
 {% endif %}
