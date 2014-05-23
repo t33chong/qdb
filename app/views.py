@@ -18,10 +18,11 @@ PER_PAGE = 2
 
 @login_required
 def index(request, page_num=1):
-    # TODO: Paginate
     quotes = Quote.objects.all().order_by('-date')
-    p = Paginator(quotes, PER_PAGE)
-    page = p.page(page_num)
+    page = None
+    if quotes:
+        p = Paginator(quotes, PER_PAGE)
+        page = p.page(page_num)
     context = {'page': page}
     return render(request, 'app/index.html', context)
 
@@ -34,7 +35,7 @@ def detail(request, quote_id):
 
 
 @login_required
-def tag(request, tag_text):
+def tag(request, tag_text, page_num=1):
     # TODO: Paginate
     tag = Tag.objects.filter(text=tag_text).first()
     quotes = None
