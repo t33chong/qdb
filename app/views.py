@@ -48,7 +48,12 @@ def tag(request, tag_text, page_num=1):
         quotes = tag.quotes.all()
         if quotes:
             p = Paginator(quotes, PER_PAGE)
-            page = p.page(page_num)
+            try:
+                page = p.page(page_num)
+            except PageNotAnInteger:
+                page = p.page(1)
+            except EmptyPage:
+                page = p.page(p.num_pages)
     context = {'tag_text': tag_text, 'page': page}
     return render(request, 'app/tag.html', context)
 
