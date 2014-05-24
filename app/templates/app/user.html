@@ -2,7 +2,6 @@
 
 {% block content %}
 <h3>User: {{username}}</h3>
-{% if user_exists %}
 {% if page %}
 {% for quote in page %}
 <div id="quote{{quote.id}}">
@@ -12,20 +11,17 @@
 <div class="pagination">
   <span class="step-links">
     {% if page.has_previous %}
-    <a href="{% url 'app:user' username=username user_exists=user_exists page_num=page.previous_page_number %}">previous</a>
+    <a href="{% url 'app:user' username=username page_num=page.previous_page_number %}">previous</a>
     {% endif %}
     <span class="current">
       Page {{page.number}} of {{page.paginator.num_pages}}.
     </span>
     {% if page.has_next %}
-    <a href="{% url 'app:user' username=username user_exists=user_exists page_num=page.next_page_number %}">next</a>
+    <a href="{% url 'app:user' username=username page_num=page.next_page_number %}">next</a>
     {% endif %}
   </span>
 </div>
 {% else %}
 {{username}} has not submitted any quotes yet.
-{% endif %}
-{% else %}
-User "{{username}}" does not exist.
 {% endif %}
 {% endblock %}
