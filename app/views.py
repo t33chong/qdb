@@ -20,7 +20,7 @@ PER_PAGE = 2
 def index(request, page_num=1):
     quotes = Quote.objects.all().order_by('-date')
     page = None
-    if quotes:
+    if quotes is not None:
         p = Paginator(quotes, PER_PAGE)
         try:
             page = p.page(page_num)
@@ -43,10 +43,9 @@ def detail(request, quote_id):
 def tag(request, tag_text, page_num=1):
     tag = Tag.objects.filter(text=tag_text).first()
     page = None
-    quotes = None
     if tag is not None:
         quotes = tag.quotes.all().order_by('-date')
-        if quotes:
+        if quotes is not None:
             p = Paginator(quotes, PER_PAGE)
             try:
                 page = p.page(page_num)
@@ -61,11 +60,12 @@ def tag(request, tag_text, page_num=1):
 @login_required
 def user(request, username, page_num=1):
     user = User.objects.filter(username=username).first()
+    page = None
     if user is None:
         context = {'username': username}
         return render(request, 'app/user_does_not_exist.html', context)
     quotes = user.quotes.all().order_by('-date')
-    if quotes:
+    if quotes is not None:
         p = Paginator(quotes, PER_PAGE)
         try:
             page = p.page(page_num)
@@ -80,7 +80,10 @@ def user(request, username, page_num=1):
 @login_required
 def search(request):
     query = request.GET['q']
-    results = Quote.search_manager.search(query)
+    quotes = Quote.search_manager.search(query)
+    if quotes:
+        p = Paginator(quotes, PER_PAGE)
+        page = p.page(1)
     context = {'query': query, 'results': results}
     return render(request, 'app/search.html', context)
 
