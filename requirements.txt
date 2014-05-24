@@ -2,3 +2,4 @@ django
 psycopg2
 South
 -e git://github.com/mikl/django-password-required.git#egg=password_required
+django-voting
