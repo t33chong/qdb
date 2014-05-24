@@ -1,14 +1,28 @@
 {% extends "app/base.html" %}
 
 {% block content %}
-{% if results %}
-{% for quote in results %}
+{% if page %}
+<h2>Results for "{{query}}"</h2>
+{% for quote in page %}
 <div id="quote{{quote.id}}">
   {% include "app/quote.html" with quote=quote %}
 </div>
 <br>
 {% endfor %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page.has_previous %}
+    <a href="{% url 'app:all' page_num=page.previous_page_number %}">previous</a>
+    {% endif %}
+    <span class="current">
+      Page {{page.number}} of {{page.paginator.num_pages}}.
+    </span>
+    {% if page.has_next %}
+    <a href="{% url 'app:all' page_num=page.next_page_number %}">next</a>
+    {% endif %}
+  </span>
+</div>
 {% else %}
-<p>No quotes have been submitted.</p>
+<p>No results for "{{query}}"</p>
 {% endif %}
 {% endblock %}
