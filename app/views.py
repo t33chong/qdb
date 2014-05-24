@@ -81,10 +81,11 @@ def user(request, username, page_num=1):
 def search(request):
     query = request.GET['q']
     quotes = Quote.search_manager.search(query)
-    if quotes:
+    page = None
+    if quotes is not None:
         p = Paginator(quotes, PER_PAGE)
         page = p.page(1)
-    context = {'query': query, 'results': results}
+    context = {'query': query, 'page': page}
     return render(request, 'app/search.html', context)
 
 
