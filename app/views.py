@@ -82,7 +82,7 @@ def search(request):
     query = request.GET['q']
     results = Quote.search_manager.search(query)
     context = {'query': query, 'results': results}
-    return render(request, 'app/search_results.html', context)
+    return render(request, 'app/search.html', context)
 
 
 @password_required
