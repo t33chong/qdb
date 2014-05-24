@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-#BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.realpath(os.path.dirname(__file__))
 
 
@@ -42,9 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    #'hunger',
     'password_required',
-    'bootstrap_pagination',
     'south',
 )
 
@@ -55,7 +52,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'hunger.middleware.BetaMiddleware',
 )
 
 ROOT_URLCONF = 'qdb.urls'
@@ -106,7 +102,6 @@ LOGIN_URL = '/login/'
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.contrib.messages.context_processors.messages',  # for messages
-    'django.core.context_processors.request',  # for bootstrap_paginate
     )
 
 
@@ -115,14 +110,6 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     )
-
-
-## Hunger
-#
-#HUNGER_ALWAYS_ALLOW_MODULES = [
-#    'django.contrib.auth.views',
-#    'app.signup',  # Not sure if this is necessary
-#    ]
 
 
 # Password Required
