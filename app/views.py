@@ -78,24 +78,30 @@ def user(request, username, page_num=1):
 
 
 @login_required
-def search(request, query, page_num=1):
-    #try:
-    #    query = request.GET['q']
-    #except:
-    #    query = None
-    #if query is None:
-    #    return HttpResponse('Please enter a valid search query.')
+def search(request):
+    params = request.GET.copy()
+    if 'page' in params:
+        del params['page']
+    query = params.get('q')
+    if query is None:
+        return HttpResponse('Please enter a valid search query.')
     quotes = Quote.search_manager.search(query)
     page = None
+    path = None
     if quotes is not None:
         p = Paginator(quotes, PER_PAGE)
+        try:
+            page_num = int(request.GET.get('page', '1'))
+        except ValueError:
+            page_num = 1
         try:
             page = p.page(page_num)
         except PageNotAnInteger:
             page = p.page(1)
         except EmptyPage:
             page = p.page(p.num_pages)
-    context = {'query': query, 'page': page}
+        path = params.urlencode()
+    context = {'query': params, 'page': page, 'path': path}
     return render(request, 'app/search.html', context)
 
 
