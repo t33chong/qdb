@@ -1,5 +1,4 @@
 venv/
-qdb/settings.py
 *.swp
 *.pyc
 src/
