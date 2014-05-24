@@ -78,13 +78,13 @@ def user(request, username, page_num=1):
 
 
 @login_required
-def search(request, page_num=1):
-    try:
-        query = request.GET['q']
-    except:
-        query = None
-    if query is None:
-        return HttpResponse('Please enter a valid search query.')
+def search(request, query, page_num=1):
+    #try:
+    #    query = request.GET['q']
+    #except:
+    #    query = None
+    #if query is None:
+    #    return HttpResponse('Please enter a valid search query.')
     quotes = Quote.search_manager.search(query)
     page = None
     if quotes is not None:
