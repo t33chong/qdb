@@ -5,7 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 
 from password_required.decorators import password_required
@@ -79,7 +79,12 @@ def user(request, username, page_num=1):
 
 @login_required
 def search(request):
-    query = request.GET['q']
+    try:
+        query = request.GET['q']
+    except:
+        query = None
+    if query is None:
+        return HttpResponse('Please enter a valid search query.')
     quotes = Quote.search_manager.search(query)
     page = None
     if quotes is not None:
