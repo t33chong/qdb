@@ -3,3 +3,4 @@ qdb/settings.py
 *.swp
 *.pyc
 src/
+*.bak
