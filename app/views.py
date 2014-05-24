@@ -45,7 +45,7 @@ def tag(request, tag_text, page_num=1):
     page = None
     quotes = None
     if tag is not None:
-        quotes = tag.quotes.all()
+        quotes = tag.quotes.all().order_by('-date')
         if quotes:
             p = Paginator(quotes, PER_PAGE)
             try:
@@ -64,7 +64,7 @@ def user(request, username, page_num=1):
     if user is None:
         context = {'username': username}
         return render(request, 'app/user_does_not_exist.html', context)
-    quotes = user.quotes.all()
+    quotes = user.quotes.all().order_by('-date')
     if quotes:
         p = Paginator(quotes, PER_PAGE)
         try:
