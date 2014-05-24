@@ -78,7 +78,7 @@ def user(request, username, page_num=1):
 
 
 @login_required
-def search(request):
+def search(request, page_num=1):
     try:
         query = request.GET['q']
     except:
@@ -89,7 +89,12 @@ def search(request):
     page = None
     if quotes is not None:
         p = Paginator(quotes, PER_PAGE)
-        page = p.page(1)
+        try:
+            page = p.page(page_num)
+        except PageNotAnInteger:
+            page = p.page(1)
+        except EmptyPage:
+            page = p.page(p.num_pages)
     context = {'query': query, 'page': page}
     return render(request, 'app/search.html', context)
 
