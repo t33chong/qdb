@@ -28,7 +28,7 @@ class Quote(models.Model):
     objects = models.Manager()
     search_manager = SearchManager(
         fields=('text',), config='pg_catalog.english',
-        search_field='search_index', auto_update_search_fields=True)
+        search_field='search_index', auto_update_search_field=True)
 
     def __unicode__(self):
         return unicode(self.text)[:32]
