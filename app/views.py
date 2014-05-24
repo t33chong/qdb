@@ -77,6 +77,14 @@ def user(request, username, page_num=1):
     return render(request, 'app/user.html', context)
 
 
+@login_required
+def search(request):
+    query = request.GET['q']
+    results = Quote.search_manager.search(query)
+    context = {'query': query, 'results': results}
+    return render(request, 'app/search_results.html', context)
+
+
 @password_required
 def signup(request):
     registered = False
