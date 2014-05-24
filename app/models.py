@@ -8,7 +8,7 @@ class Tag(models.Model):
 
     @staticmethod
     def make_valid_tag(text):
-        return re.sub('\W+', '_', text).lower()[:64]
+        return re.sub('\W+', '', text).lower()[:64]
 
     def __unicode__(self):
         return self.text
