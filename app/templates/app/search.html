@@ -1,0 +1,14 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+{% if results %}
+{% for quote in results %}
+<div id="quote{{quote.id}}">
+  {% include "app/quote.html" with quote=quote %}
+</div>
+<br>
+{% endfor %}
+{% else %}
+<p>No quotes have been submitted.</p>
+{% endif %}
+{% endblock %}
