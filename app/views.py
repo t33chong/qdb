@@ -61,21 +61,19 @@ def tag(request, tag_text, page_num=1):
 @login_required
 def user(request, username, page_num=1):
     user = User.objects.filter(username=username).first()
-    user_exists = False
-    quotes = None
-    if user is not None:
-        user_exists = True
-        quotes = user.quotes.all()
-        if quotes:
-            p = Paginator(quotes, PER_PAGE)
-            try:
-                page = p.page(page_num)
-            except PageNotAnInteger:
-                page = p.page(1)
-            except EmptyPage:
-                page = p.page(p.num_pages)
-    context = {
-        'username': username, 'user_exists': user_exists, 'page': page}
+    if user is None:
+        context = {'username': username}
+        return render(request, 'app/user_does_not_exist.html', context)
+    quotes = user.quotes.all()
+    if quotes:
+        p = Paginator(quotes, PER_PAGE)
+        try:
+            page = p.page(page_num)
+        except PageNotAnInteger:
+            page = p.page(1)
+        except EmptyPage:
+            page = p.page(p.num_pages)
+    context = {'username': username, 'page': page}
     return render(request, 'app/user.html', context)
 
 
