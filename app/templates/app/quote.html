@@ -11,10 +11,16 @@
 </small>
 {% endif %}
 <br>
-Score: {{quote.score}}
-<a href="#" data-id="{{quote.id}}" class="upvote {% if not request.user.is_authenticated %}nag{% elif quote.id in curr_upvotes %}active{% endif %}">
-  <span class="glyphicon glyphicon glyphicon-arrow-up"></span>
-</a>
-<a href="#" data-id="{{quote.id}}" class="downvote {% if not request.user.is_authenticated %}nag{% elif quote.id in curr_downvotes %}active{% endif %}">
-  <span class="glyphicon glyphicon glyphicon-arrow-down"></span>
-</a>
+<div class="voters">
+  <div class="score">
+    <span class="score-number">
+      Score: {{quote.score}}
+    </span>
+  </div>
+  <a href="#" data-id="{{quote.id}}" class="upvote {% if not user.is_authenticated %}nag{% elif quote.id in curr_upvotes %}active{% endif %}">
+    <span class="glyphicon glyphicon glyphicon-arrow-up"></span>
+  </a>
+  <a href="#" data-id="{{quote.id}}" class="downvote {% if not user.is_authenticated %}nag{% elif quote.id in curr_downvotes %}active{% endif %}">
+    <span class="glyphicon glyphicon glyphicon-arrow-down"></span>
+  </a>
+</div>
