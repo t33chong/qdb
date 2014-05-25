@@ -85,7 +85,7 @@ def search(request):
     query = params.get('q')
     if query is None:
         return HttpResponse('Please enter a valid search query.')
-    quotes = Quote.search_manager.search(query)
+    quotes = Quote.search_manager.search(query, rank_field='rank')
     page = None
     path = None
     if quotes is not None:
@@ -129,19 +129,25 @@ def signup(request):
 
 def log_in(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse('app:index'))
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect(reverse('app:index'))
+                else:
+                    messages.error(request, 'Your account is disabled.')
             else:
-                messages.error(request, 'Your account is disabled.')
+                print 'Invalid login details: %s, %s' % (username, password)
+                messages.error(
+                    request, 'Invalid login details. Please try again.')
         else:
-            print 'Invalid login details: %s, %s' % (username, password)
-            messages.error(request, 'Invalid login details. Please try again.')
-    form = AuthenticationForm()
+            print form.errors
+    else:
+        form = AuthenticationForm()
     context = {'form': form}
     return render(request, 'app/login.html', context)
 
