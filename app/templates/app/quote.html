@@ -11,6 +11,7 @@
 </small>
 {% endif %}
 <br>
+Score: {{quote.score}}
 <a href="#" data-id="{{quote.id}}" class="upvote {% if not request.user.is_authenticated %}nag{% elif quote.id in curr_upvotes %}active{% endif %}">
   <span class="glyphicon glyphicon glyphicon-chevron-up"></span>
 </a>
