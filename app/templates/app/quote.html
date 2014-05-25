@@ -13,8 +13,9 @@
 <br>
 <div class="voters">
   <div class="score">
+    Score:<br>
     <span class="score-number">
-      Score: {{quote.score}}
+      {{quote.get_score}}
     </span>
   </div>
   <a href="#" data-id="{{quote.id}}" class="upvote {% if not user.is_authenticated %}nag{% elif quote.id in curr_upvotes %}active{% endif %}">
