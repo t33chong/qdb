@@ -17,11 +17,15 @@ PER_PAGE = 2
 
 
 @login_required
-def index(request, page_num=1):
+def index(request):
     quotes = Quote.objects.all().order_by('-date')
     page = None
     if quotes is not None:
         p = Paginator(quotes, PER_PAGE)
+        try:
+            page_num = int(request.GET.get('page', '1'))
+        except ValueError:
+            page_num = 1
         try:
             page = p.page(page_num)
         except PageNotAnInteger:
@@ -40,13 +44,17 @@ def detail(request, quote_id):
 
 
 @login_required
-def tag(request, tag_text, page_num=1):
+def tag(request, tag_text):
     tag = Tag.objects.filter(text=tag_text).first()
     page = None
     if tag is not None:
         quotes = tag.quotes.all().order_by('-date')
         if quotes is not None:
             p = Paginator(quotes, PER_PAGE)
+            try:
+                page_num = int(request.GET.get('page', '1'))
+            except ValueError:
+                page_num = 1
             try:
                 page = p.page(page_num)
             except PageNotAnInteger:
