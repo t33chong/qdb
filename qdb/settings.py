@@ -112,6 +112,11 @@ STATICFILES_DIRS = (
     )
 
 
+# Pagination - number of items to show per page
+
+PER_PAGE = 2  # TODO: Change to someting more sensible in production
+
+
 # Password Required
 
 PASSWORD_REQUIRED_PASSWORD = 'password'  # TODO: Change in production
