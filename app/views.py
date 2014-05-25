@@ -35,6 +35,7 @@ def _get_votes(user, quote_ids):
 def index(request):
     quotes = Quote.objects.all().order_by('-date')
     page = None
+    curr_upvotes, curr_downvotes = 0, 0
     if quotes is not None:
         p = Paginator(quotes, settings.PER_PAGE)
         try:
@@ -47,7 +48,11 @@ def index(request):
             page = p.page(1)
         except EmptyPage:
             page = p.page(p.num_pages)
-    context = {'page': page}
+        curr_upvotes, curr_downvotes = _get_votes(
+            request.user, [q.id for q in page])
+    context = {
+        'page': page, 'curr_upvotes': curr_upvotes,
+        'curr_downvotes': curr_downvotes}
     return render(request, 'app/index.html', context)
 
 
