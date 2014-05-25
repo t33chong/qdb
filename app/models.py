@@ -21,14 +21,20 @@ class Quote(models.Model):
     submitter = models.ForeignKey(User, related_name='quotes')
     date = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, related_name='quotes')
-    num_upvotes = models.IntegerField(default=0)
-    num_downvotes = models.IntegerField(default=0)
+    score = models.IntegerField(default=0)
 
     search_index = VectorField()
     objects = models.Manager()
     search_manager = SearchManager(
         fields=('text',), config='pg_catalog.english',
         search_field='search_index', auto_update_search_field=True)
+
+    def update_score(self):
+        self.score = self.upvotes.count() - self.downvotes.count()
+
+    def save(self, *args, **kwargs):
+        self.update_score()
+        super(Quote, self).save()
 
     def __unicode__(self):
         return unicode(self.text)[:32]
