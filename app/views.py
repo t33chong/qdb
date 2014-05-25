@@ -161,14 +161,15 @@ def submit(request):
             )
         quote.save()
         tag_string = request.POST['tag_string']
-        tag_texts = [
-            Tag.make_valid_tag(text.strip()) for text in tag_string.split(',')]
-        for text in tag_texts:
-            tag = Tag.objects.filter(text=text).first()
-            if tag is None:
-                tag = Tag(text=text)
-                tag.save()
-            quote.tags.add(tag)
+        if len(tag_string) > 0:
+            tag_texts = [Tag.make_valid_tag(text.strip()) for text in
+                         tag_string.split(',')]
+            for text in tag_texts:
+                tag = Tag.objects.filter(text=text).first()
+                if tag is None:
+                    tag = Tag(text=text)
+                    tag.save()
+                quote.tags.add(tag)
         return redirect(reverse('app:detail', args=(quote.id,)))
     form = QuoteForm()
     context = {'form': form}
