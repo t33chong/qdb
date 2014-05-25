@@ -33,7 +33,7 @@ class Quote(models.Model):
         self.score = self.upvotes.count() - self.downvotes.count()
 
     def get_score(self):
-        return int(self.score)
+        return int(self.upvotes.count() - self.downvotes.count())
 
     def save(self, *args, **kwargs):
         self.update_score()
