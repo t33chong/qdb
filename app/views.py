@@ -66,7 +66,7 @@ def tag(request, tag_text):
 
 
 @login_required
-def user(request, username, page_num=1):
+def user(request, username):
     user = User.objects.filter(username=username).first()
     page = None
     if user is None:
@@ -75,6 +75,10 @@ def user(request, username, page_num=1):
     quotes = user.quotes.all().order_by('-date')
     if quotes is not None:
         p = Paginator(quotes, PER_PAGE)
+        try:
+            page_num = int(request.GET.get('page', '1'))
+        except ValueError:
+            page_num = 1
         try:
             page = p.page(page_num)
         except PageNotAnInteger:
