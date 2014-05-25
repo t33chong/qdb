@@ -12,7 +12,20 @@ from django.shortcuts import get_object_or_404, render, redirect
 from password_required.decorators import password_required
 
 from app.forms import QuoteForm, UserForm
-from app.models import Quote, Tag
+from app.models import Quote, Tag, Upvote, Downvote
+
+
+def _get_votes(user, quote_ids):
+    curr_upvotes = []
+    curr_downvotes = []
+    if user.is_authenticated():
+        curr_upvotes = [u.quote_id for u in
+                        Upvote.objects.filter(quote__id__in=quote_ids,
+                                              user=user)]
+        curr_downvotes = [d.quote_id for d in
+                          Downvote.objects.filter(quote__id__in=quote_ids,
+                                                  user=user)]
+    return curr_upvotes, curr_downvotes
 
 
 @login_required
