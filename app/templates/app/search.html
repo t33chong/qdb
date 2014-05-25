@@ -2,7 +2,7 @@
 
 {% block content %}
 {% if page %}
-<h2>Results for "{{query}}"</h2>
+<h2>Results for "{{params.q}}"</h2>
 {% for quote in page %}
 <div id="quote{{quote.id}}">
   {% include "app/quote.html" with quote=quote %}
@@ -23,6 +23,6 @@
   </span>
 </div>
 {% else %}
-<p>No results for "{{query}}"</p>
+<p>No results for "{{params.q}}"</p>
 {% endif %}
 {% endblock %}
