@@ -1,0 +1,25 @@
+.voters div{
+    text-align: center;
+}
+
+.upvote, .downvote{
+    font-size: 20px;
+}
+
+.score-number{
+    font-weight: bold;
+    color: #aaaaaa;
+}
+
+.voters a{
+    color: #dddddd;
+    outline-width: 2px;
+}
+
+.upvote.active{
+    color: #ff6600;
+}
+
+.downvote.active{
+    color: #336699;
+}
