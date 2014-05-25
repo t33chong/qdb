@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -13,15 +14,13 @@ from password_required.decorators import password_required
 from app.forms import QuoteForm, UserForm
 from app.models import Quote, Tag
 
-PER_PAGE = 2
-
 
 @login_required
 def index(request):
     quotes = Quote.objects.all().order_by('-date')
     page = None
     if quotes is not None:
-        p = Paginator(quotes, PER_PAGE)
+        p = Paginator(quotes, settings.PER_PAGE)
         try:
             page_num = int(request.GET.get('page', '1'))
         except ValueError:
@@ -42,7 +41,7 @@ def top(request):
     quotes = Quote.objects.all().order_by('-score')
     page = None
     if quotes is not None:
-        p = Paginator(quotes, PER_PAGE)
+        p = Paginator(quotes, settings.PER_PAGE)
         try:
             page_num = int(request.GET.get('page', '1'))
         except ValueError:
@@ -71,7 +70,7 @@ def tag(request, tag_text):
     if tag is not None:
         quotes = tag.quotes.all().order_by('-date')
         if quotes is not None:
-            p = Paginator(quotes, PER_PAGE)
+            p = Paginator(quotes, settings.PER_PAGE)
             try:
                 page_num = int(request.GET.get('page', '1'))
             except ValueError:
@@ -95,7 +94,7 @@ def user(request, username):
         return render(request, 'app/user_does_not_exist.html', context)
     quotes = user.quotes.all().order_by('-date')
     if quotes is not None:
-        p = Paginator(quotes, PER_PAGE)
+        p = Paginator(quotes, settings.PER_PAGE)
         try:
             page_num = int(request.GET.get('page', '1'))
         except ValueError:
@@ -122,7 +121,7 @@ def search(request):
     page = None
     path = None
     if quotes is not None:
-        p = Paginator(quotes, PER_PAGE)
+        p = Paginator(quotes, settings.PER_PAGE)
         try:
             page_num = int(request.GET.get('page', '1'))
         except ValueError:
