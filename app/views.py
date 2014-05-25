@@ -37,6 +37,12 @@ def index(request):
 
 
 @login_required
+def top(request):
+    # Sort by score when voting is implemented
+    pass
+
+
+@login_required
 def detail(request, quote_id):
     quote = get_object_or_404(Quote, pk=quote_id)
     context = {'quote': quote}
