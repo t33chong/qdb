@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from password_required.decorators import password_required
@@ -238,6 +239,7 @@ def submit(request):
 
 @require_POST
 @login_required
+@csrf_exempt
 def upvote(request, quote_id):
     try:
         quote = Quote.objects.get(id=quote_id)
@@ -269,6 +271,7 @@ def upvote(request, quote_id):
 
 @require_POST
 @login_required
+@csrf_exempt
 def downvote(request, quote_id):
     try:
         quote = Quote.objects.get(id=quote_id)
