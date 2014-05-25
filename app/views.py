@@ -38,8 +38,23 @@ def index(request):
 
 @login_required
 def top(request):
-    # Sort by score when voting is implemented
-    pass
+    # TODO: Implement voting
+    quotes = Quote.objects.all().order_by('-score')
+    page = None
+    if quotes is not None:
+        p = Paginator(quotes, PER_PAGE)
+        try:
+            page_num = int(request.GET.get('page', '1'))
+        except ValueError:
+            page_num = 1
+        try:
+            page = p.page(page_num)
+        except PageNotAnInteger:
+            page = p.page(1)
+        except EmptyPage:
+            page = p.page(p.num_pages)
+    context = {'page': page}
+    return render(request, 'app/top.html', context)
 
 
 @login_required
