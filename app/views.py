@@ -1,13 +1,16 @@
+import json
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.decorators.http import require_POST
 
 from password_required.decorators import password_required
 
@@ -226,3 +229,65 @@ def submit(request):
     form = QuoteForm()
     context = {'form': form}
     return render(request, 'app/submit.html', context)
+
+
+@require_POST
+@login_required
+def upvote(request, quote_id):
+    try:
+        quote = Quote.objects.get(id=quote_id)
+    except ObjectDoesNotExist:
+        return HttpResponse(
+            json.dumps({'message': 'Quote not found'}), status=404)
+    try:
+        current_downvote = Downvote.objects.get(quote=quote, user=request.user)
+        current_downvote.delete()
+    except ObjectDoesNotExist:
+        pass
+    try:
+        current_upvote = Upvote.objects.get(quote=quote, user=request.user)
+        if request.POST.get('delete'):
+            current_upvote.delete()
+            return HttpResponse(
+                json.dumps({'message': 'Upvote deleted'}), status=200)
+        return HttpResponse(
+            json.dumps({'message': 'Already upvoted'}), status=200)
+    except ObjectDoesNotExist:
+        if not request.POST.get('delete'):
+            new_upvote = Upvote()
+            new_upvote.quote = quote
+            new_upvote.user = request.user
+            new_upvote.save()
+    return HttpResponse(
+        json.dumps({'message': 'Upvote successful'}), status=200)
+
+
+@require_POST
+@login_required
+def downvote(request, quote_id):
+    try:
+        quote = Quote.objects.get(id=quote_id)
+    except ObjectDoesNotExist:
+        return HttpResponse(
+            json.dumps({'message': 'Quote not found'}), status=404)
+    try:
+        current_upvote = Upvote.objects.get(quote=quote, user=request.user)
+        current_upvote.delete()
+    except ObjectDoesNotExist:
+        pass
+    try:
+        current_downvote = Downvote.objects.get(quote=quote, user=request.user)
+        if request.POST.get('delete'):
+            current_downvote.delete()
+            return HttpResponse(
+                json.dumps({'message': 'Downvote deleted'}), status=200)
+        return HttpResponse(
+            json.dumps({'message': 'Already Downvoted'}), status=200)
+    except ObjectDoesNotExist:
+        if not request.POST.get('delete'):
+            new_downvote = Downvote()
+            new_downvote.quote = quote
+            new_downvote.user = request.user
+            new_downvote.save()
+    return HttpResponse(
+        json.dumps({'message': 'Downvote successful'}), status=200)
