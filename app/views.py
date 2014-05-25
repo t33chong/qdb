@@ -101,7 +101,7 @@ def search(request):
         except EmptyPage:
             page = p.page(p.num_pages)
         path = params.urlencode()
-    context = {'query': params, 'page': page, 'path': path}
+    context = {'params': params, 'page': page, 'path': path}
     return render(request, 'app/search.html', context)
 
 
