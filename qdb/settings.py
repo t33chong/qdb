@@ -42,6 +42,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'app',
     'password_required',
+    'secretballot',
+    'likes',
     'south',
 )
 
@@ -52,6 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'likes.middleware.SecretBallotIpUseragentMiddleware',
 )
 
 ROOT_URLCONF = 'qdb.urls'
