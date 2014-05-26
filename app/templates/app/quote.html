@@ -13,9 +13,16 @@
 </small>
 {% endif %}
 
+{% get_rating_score for quote as score %}
+{% if score %}
+Average score: {{score.average|floatformat}}
+<br>
+Number of votes: {{score.num_votes}}
+{% else %}
 {% get_rating_form for quote as rating_form %}
 <form action="{% url ratings_vote %}" method="post">
   {% csrf_token %}
   {{rating_form}}
   <p><input type="submit" value="Vote &rarr;"></p>
 </form>
+{% endif %}
