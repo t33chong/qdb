@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/jquery.upvote.css' %}">
 
   </head>
   <body>
@@ -19,5 +20,6 @@
     {% block content %}{% endblock %}
     <script src="{% static 'app/js/jquery-1.11.1.min.js' %}"></script>
     <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'lib/jquery.upvote.js' %}"></script>
   </body>
 </html>
