@@ -8,6 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.decorators.http import require_POST
 
 from password_required.decorators import password_required
 
@@ -213,3 +214,17 @@ def submit(request):
     form = QuoteForm()
     context = {'form': form}
     return render(request, 'app/submit.html', context)
+
+
+@require_POST
+@login_required
+def rate(request, quote_id):
+    score = request.POST.get('rating')
+    quote = Quote.objects.filter(id=quote_id).first()
+    if quote is None:
+        return HttpResponse('Quote not found.')
+    if quote.user_has_rated(request.user):
+        return HttpResponse('You have already rated this quote.')
+    quote.ratings.rate(user=request.user, score=score)
+    quote.save()
+    return HttpResponse('Your rating has been registered.')
