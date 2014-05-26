@@ -4,6 +4,7 @@ from django.db import models
 from djorm_pgfulltext.models import SearchManager
 from djorm_pgfulltext.fields import VectorField
 
+from ratings.forms import StarVoteForm
 from ratings.handlers import ratings
 
 
@@ -36,4 +37,4 @@ class Quote(models.Model):
         return unicode(self.text)[:32]
 
 
-ratings.register(Quote)
+ratings.register(Quote, form_class=StarVoteForm)
