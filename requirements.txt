@@ -4,4 +4,4 @@ South
 -e git://github.com/mikl/django-password-required.git#egg=password_required
 djorm-ext-pgfulltext
 django-secretballot
-django-likes
+-e git://github.com/Afnarel/django-likes.git#egg=likes
