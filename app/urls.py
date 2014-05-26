@@ -8,7 +8,7 @@ urlpatterns = patterns(
     '',
     url('^$', views.index, name='index'),
     url('^all/(?P<page_num>\d+)/$', views.index, name='all'),
-    url('^quote/(?P<quote_id>\d+)/vote/(?P<score>[\d\-]+)/$',
+    url('^quote/(?P<object_id>\d+)/vote/(?P<score>[\d\-]+)/$',
         AddRatingFromModel(),
         {'app_label': 'app', 'model': 'Quote', 'field_name': 'rating'},
         name='vote'),
