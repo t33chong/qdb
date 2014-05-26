@@ -10,3 +10,10 @@
 {% endfor %}
 </small>
 {% endif %}
+
+<form action="{% url 'app:rate' quote_id=quote.id %}" method="post">
+  {% csrf_token %}
+  <input type="number" name="rating" id="rating{{quote.id}}" class="rating">
+  <input type="submit" value="Rate">
+</form>
+Rating: {{quote.ratings}}
