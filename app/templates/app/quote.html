@@ -20,3 +20,20 @@ User has upvoted this.
 {% if quote.id in user_downvotes %}
 User has downvoted this.
 {% endif %}
+
+<script type="text/javascript">
+  $('#votes-{{quote.id}}').upvote({count: {{quote.rating.get_difference}}{% if quote.id in user_upvotes %}, upvoted: 1{% endif %}{% if quote.id in user_downvotes %}, downvoted: 1{% endif %});
+  var callback = function(data) {
+    $.ajax({
+url: '/vote/{{quote.id}}/{% if data.upvoted %}1{% elif data.downvoted %}-1{% endif %}',
+        type: 'post',
+        data: { id: data.id, up: data.upvoted, down: data.downvoted, star: data.starred }
+    });
+  };
+  $('#topic-123').upvote({id: 123, callback: callback});
+</script>
+<div id="votes-{{quote.id}}" class="upvote">
+  <a class="upvote"></a>
+  <span class="count">{{quote.rating.get_difference}}</span>
+  <a class="downvote"></a>
+</div>
