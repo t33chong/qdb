@@ -9,3 +9,14 @@
 {% endfor %}
 </small>
 {% endif %}
+
+<br>
+Total upvotes: {{quote.rating.likes}}<br>
+Total downvotes: {{quote.rating.dislikes}}<br>
+Score: {{quote.rating.get_difference}}<br>
+{% if quote.id in user_upvotes %}
+User has upvoted this.
+{% endif %}
+{% if quote.id in user_downvotes %}
+User has downvoted this.
+{% endif %}
