@@ -1,4 +1,6 @@
 {% load app_tags %}
+{% load ratings_tags %}
+
 <pre>{{quote.text|urlize|target_blank|linebreaks}}</pre>
 <small>Submitted by <a href="{% url 'app:user' quote.submitter.username %}">{{quote.submitter.username}}</a> at <a href="{% url 'app:detail' quote.id %}">{{quote.date}}</a></small>
 <br>
@@ -10,3 +12,10 @@
 {% endfor %}
 </small>
 {% endif %}
+
+{% get_rating_form for quote as rating_form %}
+<form action="{% url ratings_vote %}" method="post">
+  {% csrf_token %}
+  {{rating_form}}
+  <p><input type="submit" value="Vote &rarr;"></p>
+</form>
