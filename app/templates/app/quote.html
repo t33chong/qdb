@@ -40,7 +40,9 @@ User has downvoted this.
 {% endif %}
 
 <script type="text/javascript">
-  $('#votes-{{quote.id}}').upvote({id: {{quote.id}}, count: {{quote.rating.get_difference}}{% if quote.id in user_upvotes %}, upvoted: 1{% endif %}{% if quote.id in user_downvotes %}, downvoted: 1{% endif %}, callback: callback});
+  $(function() {
+    $('.upvote #votes-{{quote.id}}').upvote({id: {{quote.id}}, count: {{quote.rating.get_difference}}{% if quote.id in user_upvotes %}, upvoted: 1{% endif %}{% if quote.id in user_downvotes %}, downvoted: 1{% endif %}, callback: callback});
+  )};
 </script>
 
 <div id="votes-{{quote.id}}" class="upvote">
