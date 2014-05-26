@@ -4,6 +4,8 @@ from django.db import models
 from djorm_pgfulltext.models import SearchManager
 from djorm_pgfulltext.fields import VectorField
 
+from ratings.handlers import ratings
+
 
 class Tag(models.Model):
     text = models.CharField(max_length=64, unique=True)
@@ -34,17 +36,4 @@ class Quote(models.Model):
         return unicode(self.text)[:32]
 
 
-class Upvote(models.Model):
-    quote = models.ForeignKey(Quote, related_name='upvotes')
-    user = models.ForeignKey(User, related_name='upvotes')
-
-    def __unicode__(self):
-        return u'%s->%s' % (self.user.username, self.quote.text[:32])
-
-
-class Downvote(models.Model):
-    quote = models.ForeignKey(Quote, related_name='downvotes')
-    user = models.ForeignKey(User, related_name='downvotes')
-
-    def __unicode__(self):
-        return u'%s->%s' % (self.user.username, self.quote.text[:32])
+ratings.register(Quote)
