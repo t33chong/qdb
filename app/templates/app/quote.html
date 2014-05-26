@@ -20,7 +20,7 @@ Average score: {{score.average|floatformat}}
 Number of votes: {{score.num_votes}}
 {% else %}
 {% get_rating_form for quote as rating_form %}
-<form action="{% url ratings_vote %}" method="post">
+<form action="{% url 'ratings_vote' %}" method="post">
   {% csrf_token %}
   {{rating_form}}
   <p><input type="submit" value="Vote &rarr;"></p>
