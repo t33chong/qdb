@@ -14,6 +14,5 @@ urlpatterns = patterns(
     url('^login/$', views.log_in, name='login'),
     url('^logout/$', views.log_out, name='logout'),
     url('^submit/$', views.submit, name='submit'),
-    url('^upvote/(?P<quote_id>\d+)/$', views.upvote, name='upvote'),
-    url('^downvote/(?P<quote_id>\d+)/$', views.downvote, name='downvote'),
+    url('^rate/(?P<quote_id>\d+)/$', views.rate, name='rate'),
     )
