@@ -30,5 +30,14 @@ class Quote(models.Model):
         fields=('text',), config='pg_catalog.english',
         search_field='search_index', auto_update_search_field=True)
 
+    def user_has_rated(self, user):
+        try:
+            self.ratings.get(user=user)
+        except:
+            return False
+        else:
+            return True
+        #return bool(self.ratings.filter(user=user).first())
+
     def __unicode__(self):
         return unicode(self.text)[:32]
