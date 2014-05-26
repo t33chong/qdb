@@ -14,5 +14,5 @@ urlpatterns = patterns(
     url('^login/$', views.log_in, name='login'),
     url('^logout/$', views.log_out, name='logout'),
     url('^submit/$', views.submit, name='submit'),
-    url('^rate/(?P<quote_id>\d+)/$', views.rate, name='rate'),
+    url('^rate/(?P<quote_id>\d+)/(?P<score>\d+)/$', views.rate, name='rate'),
     )
