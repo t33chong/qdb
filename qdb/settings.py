@@ -105,6 +105,7 @@ LOGIN_URL = '/login/'
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.contrib.messages.context_processors.messages',  # for messages
+    'django.core.context_processors.request',  # for likes
     )
 
 
