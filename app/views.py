@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 
 from password_required.decorators import password_required
+from updown.models import Vote
 
 from app.forms import QuoteForm, UserForm
 from app.models import Quote, Tag
@@ -20,6 +21,7 @@ PER_PAGE = 2
 def index(request, page_num=1):
     quotes = Quote.objects.all().order_by('-date')
     page = None
+    user_upvotes, user_downvotes = [], []
     if quotes:
         p = Paginator(quotes, PER_PAGE)
         try:
@@ -28,7 +30,12 @@ def index(request, page_num=1):
             page = p.page(1)
         except EmptyPage:
             page = p.page(p.num_pages)
-    context = {'page': page}
+        user_upvotes = [v.object_id for v in
+                        Vote.objects.filter(user=request.user, score=1)]
+        user_downvotes = [v.object_id for v in
+                          Vote.objects.filter(user=request.user, score=-1)]
+    context = {'page': page, 'user_upvotes': user_upvotes,
+               'user_downvotes': user_downvotes}
     return render(request, 'app/index.html', context)
 
 
