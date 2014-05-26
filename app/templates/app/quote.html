@@ -1,3 +1,21 @@
+<script type="text/javascript">
+  var callback = function(data) {
+    if (data.upvoted == true) {
+      data.score = 1;
+    }
+    else if (data.downvoted == true) {
+      data.score = -1;
+    }
+    else {
+      data.score = 0;
+    }
+    $.ajax({
+      url: '/vote/' + data.id + '/' + data.score + '/',
+      type: 'post'
+    });
+  };
+</script>
+
 <pre>{{quote.text|urlize|linebreaks}}</pre>
 <small>Submitted by <a href="{% url 'app:user' quote.submitter.username %}">{{quote.submitter.username}}</a> at <a href="{% url 'app:detail' quote.id %}">{{quote.date}}</a></small>
 <br>
@@ -22,16 +40,9 @@ User has downvoted this.
 {% endif %}
 
 <script type="text/javascript">
-  $('#votes-{{quote.id}}').upvote({count: {{quote.rating.get_difference}}{% if quote.id in user_upvotes %}, upvoted: 1{% endif %}{% if quote.id in user_downvotes %}, downvoted: 1{% endif %});
-  var callback = function(data) {
-    $.ajax({
-url: '/vote/{{quote.id}}/{% if data.upvoted %}1{% elif data.downvoted %}-1{% endif %}',
-        type: 'post',
-        data: { id: data.id, up: data.upvoted, down: data.downvoted, star: data.starred }
-    });
-  };
-  $('#topic-123').upvote({id: 123, callback: callback});
+  $('#votes-{{quote.id}}').upvote({id: {{quote.id}}, count: {{quote.rating.get_difference}}{% if quote.id in user_upvotes %}, upvoted: 1{% endif %}{% if quote.id in user_downvotes %}, downvoted: 1{% endif %}, callback: callback});
 </script>
+
 <div id="votes-{{quote.id}}" class="upvote">
   <a class="upvote"></a>
   <span class="count">{{quote.rating.get_difference}}</span>
