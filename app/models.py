@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from djorm_pgfulltext.models import SearchManager
 from djorm_pgfulltext.fields import VectorField
+from ratings.models import Ratings
 
 
 class Tag(models.Model):
@@ -21,8 +22,7 @@ class Quote(models.Model):
     submitter = models.ForeignKey(User, related_name='quotes')
     date = models.DateTimeField(auto_now_add=True)
     tags = models.ManyToManyField(Tag, related_name='quotes')
-    num_upvotes = models.IntegerField(default=0)
-    num_downvotes = models.IntegerField(default=0)
+    ratings = Ratings()
 
     search_index = VectorField()
     objects = models.Manager()
@@ -32,19 +32,3 @@ class Quote(models.Model):
 
     def __unicode__(self):
         return unicode(self.text)[:32]
-
-
-class Upvote(models.Model):
-    quote = models.ForeignKey(Quote, related_name='upvotes')
-    user = models.ForeignKey(User, related_name='upvotes')
-
-    def __unicode__(self):
-        return u'%s->%s' % (self.user.username, self.quote.text[:32])
-
-
-class Downvote(models.Model):
-    quote = models.ForeignKey(Quote, related_name='downvotes')
-    user = models.ForeignKey(User, related_name='downvotes')
-
-    def __unicode__(self):
-        return u'%s->%s' % (self.user.username, self.quote.text[:32])
