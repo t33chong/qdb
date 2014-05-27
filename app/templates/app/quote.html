@@ -40,13 +40,16 @@ User has downvoted this.
 {% endif %}
 
 <script type="text/javascript">
+  function gen(target, cssClass, params) {
+    var obj = $('.upvote').clone();
+    obj.addClass(cssClass);
+    $(target).append(obj);
+    return obj.upvote(params);
+  };
   $(function() {
-    $('.upvote #votes-{{quote.id}}').upvote({id: {{quote.id}}, count: {{quote.rating.get_difference}}{% if quote.id in user_upvotes %}, upvoted: 1{% endif %}{% if quote.id in user_downvotes %}, downvoted: 1{% endif %}, callback: callback});
-  )};
+    var params = {id: {{quote.id}}, count: {{quote.rating.get_difference}}{% if quote.id in user_upvotes %}, upvoted: 1{% endif %}{% if quote.id in user_downvotes %}, downvoted: 1{% endif %}, callback: callback};
+    gen('#votes-{{quote.id}}', '', params);
+  });
 </script>
 
-<div id="votes-{{quote.id}}" class="upvote">
-  <a class="upvote"></a>
-  <span class="count">{{quote.rating.get_difference}}</span>
-  <a class="downvote"></a>
-</div>
+<div id="votes-{{quote.id}}" class="upvote"></div>
