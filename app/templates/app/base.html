@@ -11,6 +11,9 @@
     {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'lib/jquery.upvote.css' %}">
+    <script src="{% static 'app/js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'lib/jquery.upvote.js' %}"></script>
 
   </head>
   <body>
@@ -18,8 +21,5 @@
     <!-- TODO: Eventually remove signup link, as user will need to be logged in to see the QDB anyway -->
     <hr>
     {% block content %}{% endblock %}
-    <script src="{% static 'app/js/jquery-1.11.1.min.js' %}"></script>
-    <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'lib/jquery.upvote.js' %}"></script>
   </body>
 </html>
