@@ -27,7 +27,10 @@
         <div class="collapse navbar-collapse" id="bs-navbar-collapse">
           {% if user.is_authenticated %}
           <ul class="nav navbar-nav navbar-left">
-            <li><a href="{% url 'app:top' %}">Top Quotes</a></li>
+            <li>
+              <a href="{% url 'app:user' user.username %}">{{user.username}}</a>
+            </li>
+            <!-- <li><a href="{% url 'app:top' %}">Top Quotes</a></li> -->
             <li><a href="{% url 'app:submit' %}">Submit a Quote</a></li>
           </ul>
           {% endif %}
@@ -39,9 +42,6 @@
                   <input type="text" class="form-control" name="q" placeholder="Search">
                 </div>
               </form>
-            </li>
-            <li>
-              <a href="{% url 'app:user' user.username %}">{{user.username}}</a>
             </li>
             <li>
               <a href="{% url 'app:logout' %}">Log Out</a>
