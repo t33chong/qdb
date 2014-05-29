@@ -1,6 +1,7 @@
 {% extends "app/base.html" %}
 
 {% block content %}
+<div class="container-fluid">
 {% if page %}
 {% for quote in page %}
 <div id="quote{{quote.id}}">
@@ -24,4 +25,5 @@
 {% else %}
 <p>No quotes have been submitted.</p>
 {% endif %}
+</div>
 {% endblock %}
