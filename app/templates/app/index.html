@@ -3,13 +3,13 @@
 {% block content %}
 <section>
   <div class="container-fluid">
-  {% if page %}
-  {% for quote in page %}
-    {% include "app/quote.html" %}
-  {% endfor %}
-  {% else %}
-  <p>No quotes have been submitted.</p>
-  {% endif %}
+    {% if page %}
+    {% for quote in page %}
+      {% include "app/quote.html" %}
+    {% endfor %}
+    {% else %}
+    <p>No quotes have been submitted.</p>
+    {% endif %}
   </div>
 </section>
 <footer>

@@ -3,15 +3,15 @@
 {% block content %}
 <section>
   <div class="container-fluid">
-  <h2>Tag: "{{tag_text}}"</h2>
-  <br>
-  {% if page %}
-  {% for quote in page %}
-    {% include "app/quote.html" %}
-  {% endfor %}
-  {% else %}
-  <p>No quotes found with the tag "{{tag_text}}".</p>
-  {% endif %}
+    <h2>Tag: "{{tag_text}}"</h2>
+    <br>
+    {% if page %}
+    {% for quote in page %}
+      {% include "app/quote.html" %}
+    {% endfor %}
+    {% else %}
+    <p>No quotes found with the tag "{{tag_text}}".</p>
+    {% endif %}
   </div>
 </section>
 <footer>
