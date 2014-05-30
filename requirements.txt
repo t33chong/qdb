@@ -6,3 +6,4 @@ South
 djorm-ext-pgfulltext
 django-bootstrap-form
 dj-database-url
+dj-static
