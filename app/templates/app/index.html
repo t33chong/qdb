@@ -5,9 +5,7 @@
   <div class="container-fluid">
   {% if page %}
   {% for quote in page %}
-    <div id="quote{{quote.id}}">
-      {% include "app/quote.html" %}
-    </div>
+    {% include "app/quote.html" %}
   {% endfor %}
   {% else %}
   <p>No quotes have been submitted.</p>

@@ -3,9 +3,7 @@
 {% block content %}
 <section>
   <div class="container-fluid">
-    <div id="quote{{quote.id}}">
-    {% include "app/quote.html" with quote=quote %}
-    </div>
+  {% include "app/quote.html" %}
   </div>
 </section>
 {% endblock %}
