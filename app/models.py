@@ -24,11 +24,11 @@ class Quote(models.Model):
     num_upvotes = models.IntegerField(default=0)
     num_downvotes = models.IntegerField(default=0)
 
-    search_index = VectorField()
-    objects = models.Manager()
-    search_manager = SearchManager(
-        fields=('text',), config='pg_catalog.english',
-        search_field='search_index', auto_update_search_field=True)
+    #search_index = VectorField()
+    #objects = models.Manager()
+    #search_manager = SearchManager(
+    #    fields=('text',), config='pg_catalog.english',
+    #    search_field='search_index', auto_update_search_field=True)
 
     def __unicode__(self):
         return unicode(self.text)[:32]
