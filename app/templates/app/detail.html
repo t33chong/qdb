@@ -1,7 +1,9 @@
 {% extends "app/base.html" %}
 
 {% block content %}
-<div id="quote{{quote.id}}">
-{% include "app/quote.html" with quote=quote %}
+<div class="container-fluid">
+  <div id="quote{{quote.id}}">
+  {% include "app/quote.html" with quote=quote %}
+  </div>
 </div>
 {% endblock %}
