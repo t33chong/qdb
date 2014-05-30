@@ -1,15 +1,29 @@
 {% extends "app/base.html" %}
 
+{% load bootstrap %}
+
 {% block content %}
-{% if registered %}
-<h2>Success!</h2>
-<p>Successfully registered. <a href="{% url 'app:submit' %}">Submit a quote?</a></p>
-{% else %}
-<h2>Sign Up</h2>
-<form action="" method="post">
-  {% csrf_token %}
-  {{form.as_p}}
-  <input type="submit" value="Sign Up">
-</form>
-{% endif %}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+      {% if registered %}
+      <h2>Success!</h2>
+      <p>Successfully registered! <a href="{% url 'app:submit' %}">Submit a quote?</a></p>
+      {% else %}
+      <h2>Sign Up</h2>
+      <form action="" method="post">
+        {% csrf_token %}
+        {{form|bootstrap}}
+        <button class="btn btn-primary" type="submit">Sign Up</button>
+      </form>
+      {% endif %}
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
