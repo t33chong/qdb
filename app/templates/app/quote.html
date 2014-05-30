@@ -1,4 +1,5 @@
 {% load app_tags %}
+<p><a href="{% url 'app:detail' quote.id %}"><strong>#{{quote.id}}</strong></a></p>
 <pre>{{quote.text|urlize|target_blank|linebreaks}}</pre>
 <small>Submitted by <a href="{% url 'app:user' quote.submitter.username %}">{{quote.submitter.username}}</a> at <a href="{% url 'app:detail' quote.id %}">{{quote.date}}</a></small>
 <br>
