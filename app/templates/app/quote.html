@@ -1,13 +1,17 @@
 {% load app_tags %}
-<p><a href="{% url 'app:detail' quote.id %}"><strong>#{{quote.id}}</strong></a></p>
-<pre>{{quote.text|urlize|target_blank|linebreaks}}</pre>
-<small>Submitted by <a href="{% url 'app:user' quote.submitter.username %}">{{quote.submitter.username}}</a> at <a href="{% url 'app:detail' quote.id %}">{{quote.date}}</a></small>
-<br>
-<small>Tags:</small>
-{% if quote.tags %}
-<small>
-{% for tag in quote.tags.all %}
-<a href="{% url 'app:tag' tag.text %}">{{tag.text}}</a>{% if not forloop.last %}, {% endif %}
-{% endfor %}
-</small>
-{% endif %}
+
+<div id="quote-{{quote.id}}" class="container-fluid">
+  <p><a href="{% url 'app:detail' quote.id %}"><strong>#{{quote.id}}</strong></a></p>
+  <pre>{{quote.text|urlize|target_blank|linebreaks}}</pre>
+  <small>Submitted by <a href="{% url 'app:user' quote.submitter.username %}">{{quote.submitter.username}}</a> at <a href="{% url 'app:detail' quote.id %}">{{quote.date}}</a></small>
+  <br>
+  <small>Tags:
+  {% if quote.tags %}
+  {% for tag in quote.tags.all %}
+  <a href="{% url 'app:tag' tag.text %}">{{tag.text}}</a>{% if not forloop.last %}, {% endif %}
+  {% endfor %}
+  {% endif %}
+  </small>
+  <br>
+  <br>
+</div>
