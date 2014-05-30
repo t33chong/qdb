@@ -4,9 +4,9 @@
 <div class="container-fluid">
 {% if page %}
 {% for quote in page %}
-<div id="quote{{quote.id}}">
-  {% include "app/quote.html" with quote=quote %}
-</div>
+  <div id="quote{{quote.id}}">
+    {% include "app/quote.html" %}
+  </div>
 <br>
 {% endfor %}
 <div class="pagination">
