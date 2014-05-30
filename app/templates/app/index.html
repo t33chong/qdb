@@ -1,29 +1,36 @@
 {% extends "app/base.html" %}
 
 {% block content %}
-<div class="container-fluid">
-{% if page %}
-{% for quote in page %}
-  <div id="quote{{quote.id}}">
-    {% include "app/quote.html" %}
+<section>
+  <div class="container-fluid">
+  {% if page %}
+  {% for quote in page %}
+    <div id="quote{{quote.id}}">
+      {% include "app/quote.html" %}
+    </div>
+  {% endfor %}
+  {% else %}
+  <p>No quotes have been submitted.</p>
+  {% endif %}
   </div>
-<br>
-{% endfor %}
-<div class="pagination">
-  <span class="step-links">
-    {% if page.has_previous %}
-    <a href="{% url 'app:index' %}?page={{page.previous_page_number}}">previous</a>
-    {% endif %}
-    <span class="current">
-      Page {{page.number}} of {{page.paginator.num_pages}}.
-    </span>
-    {% if page.has_next %}
-    <a href="{% url 'app:index' %}?page={{page.next_page_number}}">next</a>
-    {% endif %}
-  </span>
-</div>
-{% else %}
-<p>No quotes have been submitted.</p>
-{% endif %}
-</div>
+</section>
+<footer>
+  <div class="container-fluid">
+    <ul class="pager">
+      {% if page.has_previous %}
+      <li><a href="{% url 'app:index' %}?page={{page.previous_page_number}}">&larr; Previous</a></li>
+      {% else %}
+      <li class="disabled"><a href="#">&larr; Previous</a></li>
+      {% endif %}
+      <li>
+        {{page.number}} of {{page.paginator.num_pages}}
+      </li>
+      {% if page.has_next %}
+      <li><a href="{% url 'app:index' %}?page={{page.next_page_number}}">Next &rarr;</a></li>
+      {% else %}
+      <li class="disabled"><a href="#">Next &rarr;</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</footer>
 {% endblock %}
