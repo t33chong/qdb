@@ -36,6 +36,7 @@
           {% endif %}
           <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
+            <!--
             <li>
               <form class="navbar-form" name="search" method="GET" action="{% url 'app:search' %}">
                 <div class="form-group">
@@ -43,6 +44,7 @@
                 </div>
               </form>
             </li>
+            -->
             <li>
               <a href="{% url 'app:logout' %}">Log Out</a>
             </li>
