@@ -5,11 +5,12 @@ from app.models import Quote
 
 
 class QuoteForm(forms.ModelForm):
-    tag_string = forms.CharField()
+    tags = forms.CharField(
+        help_text='Alphanumeric, no spaces. Separate with commas.')
 
     class Meta:
         model = Quote
-        fields = ('text', 'tag_string')
+        fields = ('text', 'tags')
 
 
 class UserForm(forms.ModelForm):

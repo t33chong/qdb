@@ -198,7 +198,7 @@ def submit(request):
             submitter=request.user,
             )
         quote.save()
-        tag_string = request.POST['tag_string']
+        tag_string = request.POST['tags']
         if len(tag_string) > 0:
             tag_texts = [Tag.make_valid_tag(text.strip()) for text in
                          tag_string.split(',')]
