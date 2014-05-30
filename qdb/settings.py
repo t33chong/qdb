@@ -21,7 +21,7 @@ from django.conf import global_settings
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'this is not the real secret key'  # TODO: Change in production
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -68,7 +68,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'qdb',
         'USER': 'tristan',
-        'PASSWORD': 'postgresql',  # TODO: Change in production
+        'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -115,9 +115,9 @@ STATICFILES_DIRS = (
 
 # Pagination - number of items to show per page
 
-PER_PAGE = 2  # TODO: Change to someting more sensible in production
+PER_PAGE = 10
 
 
 # Password Required
 
-PASSWORD_REQUIRED_PASSWORD = 'password'  # TODO: Change in production
+PASSWORD_REQUIRED_PASSWORD = os.getenv('PR_PASSWORD')
