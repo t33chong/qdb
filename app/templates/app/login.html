@@ -1,18 +1,30 @@
 {% extends "app/base.html" %}
 
 {% block content %}
-<h2>Log In</h2>
-{% if messages %}
-<ul class="messages">
-  {% for message in messages %}
-  <li{% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}}</li>
-  {% endfor %}
-</ul>
-{% endif %}
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <h2>Log In</h2>
+        {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-danger">{{message}}</div>
+          {% endfor %}
+        {% endif %}
 
-<form action="" method="post">
-  {% csrf_token %}
-  {{form.as_p}}
-  <input type="submit" value="Log In">
-</form>
+        <form action="" method="post">
+          <div class="form-group">
+          {% csrf_token %}
+          {{form.as_p}}
+          </div>
+          <button class="btn btn-primary" type="submit">Log In</button>
+        </form>
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
