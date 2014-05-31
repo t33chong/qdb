@@ -8,8 +8,7 @@
     <title>Quote Database</title>
 
     <!-- Bootstrap -->
-    {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
   </head>
   <body>
@@ -52,7 +51,7 @@
       </div>
     </nav>
     {% block content %}{% endblock %}
-    <script src="{% static 'app/js/jquery-1.11.1.min.js' %}"></script>
-    <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   </body>
 </html>
